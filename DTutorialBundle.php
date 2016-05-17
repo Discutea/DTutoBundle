@@ -5,7 +5,7 @@ namespace Discutea\DTutoBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Discutea\DTutoBundle\DependencyInjection\TutorialExtension;
 
-class DTutoBundle extends Bundle
+class DTutorialBundle extends Bundle
 {
     public function getContainerExtension()
     {

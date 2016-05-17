@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="df_trans_forum")
+ * @ORM\Table(name="dtuto_trans_tutorial")
  */
 class TutorialTranslation
 {
