@@ -13,7 +13,7 @@
       {% for category in categories %}
         <li>
           <h2>{{ category.title }}:</h2>
-          {% for tutorial in category.tutorials if tutorial.validContribution %}
+          {% for tutorial in category.tutorials if is_granted('CanReadTutorial', tutorial) %}
             {{ dump(tutorial) }}
               {% for contrib in tutorial.contributions %}
                 {{ dump(contrib) }}

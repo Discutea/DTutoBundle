@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Discutea\DTutoBundle\Entity\Tutorial;
 use Discutea\DTutoBundle\Entity\Category;
-use Discutea\DTutoBundle\Entity\Contribution;
 use Discutea\DTutoBundle\Form\Type\TutorialType;
 
 /**

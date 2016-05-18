@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 class TutorialType extends AbstractType
 {

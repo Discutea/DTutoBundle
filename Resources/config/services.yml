@@ -1,1 +1,9 @@
 services:
+    discutea.security.tutorial_voter:
+        class: Discutea\DTutoBundle\Security\TutorialVoter
+        arguments: 
+            - '@security.access.decision_manager'
+            - '@request_stack'
+        public: false
+        tags:
+            - { name: security.voter }
