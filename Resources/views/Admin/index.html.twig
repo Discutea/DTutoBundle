@@ -13,7 +13,7 @@
       <div class="widget-content nopadding">
         <ul class="recent-posts">
 
-          {% for turorial in tutorials|slice(0, 5) %}
+          {% for tutorial in tutorials|slice(0, 5) %}
           <li>
              {{ dump(tutorial) }}
           </li>
@@ -36,6 +36,8 @@
           <h2>{{ category.title }}:</h2>
           <a href="{{ path('discutea_tuto_edit_category', {'id': category.id}) }}" class="btn btn-sm btn-warning">{{ 'discutea.tuto.edit'|trans }}</a>
           <a href="{{ path('discutea_tuto_remove_category', {'id': category.id}) }}" class="btn btn-sm btn-danger">{{ 'discutea.tuto.remove'|trans }}</a>
+      
+          <a href="{{ path('discutea_tuto_create_tutorial', {'id': category.id}) }}" class="btn btn-sm btn-success">{{ 'discutea.tuto.tuto.create'|trans }}</a>
         </li>
       {% endfor %}
     </ul>

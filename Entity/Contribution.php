@@ -44,8 +44,12 @@ class Contribution
      * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
      */
     protected $author;
-  
-  
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $locale;
+
     public function __construct() {
         $this->setDate(new \DateTime());
     }
@@ -194,4 +198,27 @@ class Contribution
         return $this->author;
     }
 
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
 }

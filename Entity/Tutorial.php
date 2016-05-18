@@ -40,7 +40,7 @@ class Tutorial
      * @ORM\OneToMany(targetEntity="Discutea\DTutoBundle\Entity\Contribution", mappedBy="tutorial", cascade={"persist", "remove"}))
      * @ORM\OrderBy({"date" = "desc"})
      */
-    protected $contibutions;
+    protected $contributions;
 
     /**
      * @ORM\ManyToOne(targetEntity="Symfony\Component\Security\Core\User\UserInterface")
@@ -49,10 +49,17 @@ class Tutorial
     protected $author;
 
     /**
-     * @ORM\OneToOne(targetEntity="Discutea\DTutoBundle\Entity\Contribution")
+     * @ORM\ManyToOne(targetEntity="Discutea\DTutoBundle\Entity\Contribution")
      * @ORM\JoinColumn(name="valid_contrib_id", nullable=true, referencedColumnName="id")
      */
     protected $validContribution;
+
+    /**
+     *
+     * Provisoir contibution
+     * 
+     */
+    protected $tmpContribution;
 
     /**
      * @ORM\Column(name="opening_at", type="datetime", nullable=true)
@@ -62,10 +69,19 @@ class Tutorial
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Category $category = NULL, UserInterface $user = null)
     {
         $this->contrubutions = new ArrayCollection();
         $this->setDate(new \DateTime());
+
+        if ($user !== NULL) {
+            $this->setAuthor($user);
+        }
+
+        if ($category !== NULL) {
+            $this->setCategory($category);
+        }
+
     }
 
     public function __call($method, $arguments)
@@ -234,4 +250,32 @@ class Tutorial
     {
         return $this->validContribution;
     }
+
+    /**
+     * Get tmpContribution
+     *
+     * @return \Discutea\DTutoBundle\Entity\Contribution
+     */
+    public function getTmpContribution()
+    {
+        return $this->tmpContribution;
+    }
+
+    /**
+     * Set tmpContribution
+     *
+     * @param \Discutea\DTutoBundle\Entity\Contribution $tmpContribution
+     *
+     * @return Tutorial
+     */
+    public function setTmpContribution(Contribution $tmpContribution)
+    {
+        $this->tmpContribution = $tmpContribution;
+        $this->tmpContribution->setTutorial($this);
+        $this->tmpContribution->setAuthor( $this->getAuthor() );
+        
+
+        return $this;
+    }
+
 }
