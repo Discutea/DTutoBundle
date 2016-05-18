@@ -9,7 +9,7 @@ Install:
 1) Register bundle in kernel:
 
     // app/AppKernel.php
-    new Discutea\DTutoBundle\DTutorialBundle(),
+    new Discutea\DTutoBundle\DTutoBundle(),
 
 2) Add routing:
     # app/config/routing.yml

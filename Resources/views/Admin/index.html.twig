@@ -1,0 +1,45 @@
+{% extends "DTutoBundle::layout.html.twig" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-title">
+        <span class="icon"><i class="fa fa-file"></i></span><h5>{{ 'discutea.tuto.post.recent'|trans }}</h5>
+        <span title="{{ tutorials|length }} Posts" class="label label-success tip-left">{{ tutorials|length }}</span>
+      </div>
+      <div class="widget-content nopadding">
+        <ul class="recent-posts">
+
+          {% for turorial in tutorials|slice(0, 5) %}
+          <li>
+             {{ dump(tutorial) }}
+          </li>
+          {% endfor %}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<hr />
+
+{% if categories is defined %}        
+  <div class="row">
+    <h1>{{ 'discutea.tuto.category.list'|trans }}</h1>
+    <ul class="list-unstyled">
+      <li><a href="{{ path('discutea_tuto_create_category') }}" class="btn btn-sm btn-success"> {{ 'discutea.tuto.category.btnnew'|trans }} </a></li>
+      {% for category in categories %}
+        <li>
+          <h2>{{ category.title }}:</h2>
+          <a href="{{ path('discutea_tuto_edit_category', {'id': category.id}) }}" class="btn btn-sm btn-warning">{{ 'discutea.tuto.edit'|trans }}</a>
+          <a href="{{ path('discutea_tuto_remove_category', {'id': category.id}) }}" class="btn btn-sm btn-danger">{{ 'discutea.tuto.remove'|trans }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+{% endblock %}

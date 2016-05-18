@@ -113,7 +113,7 @@ use ORMBehaviors\Translatable\Translatable;
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTuroials()
+    public function getTutorials()
     {
         return $this->tutorials;
     }

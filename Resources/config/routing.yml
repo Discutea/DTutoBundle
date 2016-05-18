@@ -1,4 +1,14 @@
 discutea_tutorial_tutorial_routing:
-    resource: "@DTutorialBundle/Controller/TutorialController.php"
-    prefix:   /tuto
+    resource: "@DTutoBundle/Controller/TutorialController.php"
+    prefix:   /
+    type:     annotation
+
+discutea_tutorial_category_routing:
+    resource: "@DTutoBundle/Controller/CategoryController.php"
+    prefix:   /
+    type:     annotation
+
+discutea_tutorial_admin_routing:
+    resource: "@DTutoBundle/Controller/AdminController.php"
+    prefix:   /
     type:     annotation

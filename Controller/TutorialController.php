@@ -31,7 +31,7 @@ class TutorialController extends BaseTutorialController
     public function indexAction()
     {
 
-        return $this->render('DTutorialBundle:index.html.twig', array(
+        return $this->render('DTutoBundle:index.html.twig', array(
           //  'categories' => $categories
         ));
     }
