@@ -5,6 +5,7 @@ namespace Discutea\DTutoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use \Discutea\DTutoBundle\Entity\Tutorial;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * 
@@ -40,9 +41,9 @@ class Contribution
     protected $tutorial;
 
     /**
-     * * @ORM\Column(type="boolean", options={"default":false})
+     * @ORM\Column(name="current_version", type="boolean", options={"default":false})
      */
-    protected $active;
+    protected $current;
 
     /**
      * @ORM\ManyToOne(targetEntity="Symfony\Component\Security\Core\User\UserInterface")
@@ -51,9 +52,15 @@ class Contribution
     protected $author;
 
     /**
-     * @ORM\Column(type="string")
+     *
+     * 1 = Validate
+     * 2 = NoValidate
+     * 3 = InProgress
+     * 
+     * @ORM\Column(type="smallint", nullable=false, options={"default" = 2})
+     * 
      */
-    protected $locale;
+    protected $status = 2;
 
     public function __construct() {
         $this->setDate(new \DateTime());
@@ -204,50 +211,56 @@ class Contribution
     }
 
     /**
-     * Get locale
+     * Set current
      *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    /**
-     * Set locale
-     *
-     * @param string $locale
+     * @param string $current
      *
      * @return this
      */
-    public function setLocale($locale)
+    public function setCurrent($current)
     {
-        $this->locale = $locale;
+        $this->current = $current;
 
         return $this;
     }
 
     /**
-     * Set active
-     *
-     * @param string $active
-     *
-     * @return this
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * Get active
+     * Get current
      *
      * @return boolean
      */
-    public function getActive()
+    public function getCurrent()
     {
-        return $this->active;
+        return $this->current;
+    }
+
+    /**
+     * Get Status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set status
+     * 
+     * 1 = Validate
+     * 2 = NoValidate
+     * 3 = InProgress
+     *
+     * @return this
+     */
+    public function setStatus($status)
+    {
+        if ( ( is_int($status) === false ) || ($status < 1) || ($status > 4) ) {
+            throw new \LogicException('The logic of the status property isn\'t respected!');
+        }
+        
+        $this->status = $status;
+
+        return $this;
     }
 }

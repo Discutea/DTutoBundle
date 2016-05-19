@@ -27,13 +27,8 @@ class TutorialType extends AbstractType
         
         $builder
             
-            ->add('translations', TranslationsType::class, array(
-                'fields' => array(
-                    'slug' => array(
-                        'display' => false
-                    )
-                )
-            ))
+            ->add('title')
+            ->add('description')
             ->add('image', UrlType::class, array('required' => false))
             ->add('tmpContrib', ContributionType::class)
             ->add('save', SubmitType::class)

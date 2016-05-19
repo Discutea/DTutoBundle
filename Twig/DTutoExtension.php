@@ -5,7 +5,7 @@ namespace Discutea\DTutoBundle\Twig;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class DForumExtension extends \Twig_Extension
+class DTutoExtension extends \Twig_Extension
 {
     
     private $em;
@@ -16,11 +16,9 @@ class DForumExtension extends \Twig_Extension
     
     private $prefixUrl;
     
-    public function __construct (EntityManager $em, RequestStack $request, array $params, $prefixUrl) {
+    public function __construct (EntityManager $em, RequestStack $request) {
         $this->em = $em;
         $this->request = $request->getCurrentRequest();
-        $this->params = $params;
-        $this->prefixUrl = $prefixUrl;
     }
     
     public function getFunctions()
@@ -35,13 +33,16 @@ class DForumExtension extends \Twig_Extension
 
     public function tutoNoValidate($locale = null)
     {
-        $this->em->getRepository('DTutoBundle:Tutorial')->findAll();
+        $tutorials = $this->em->getRepository('DTutoBundle:Tutorial')->findByStatus(2);
 
+        return $tutorials;
     }
 
     public function tutoContribsNoValidate($locale = null)
     {
-
+        if($locale === NULL) {
+             
+        }
     }
 
     public function lastTutoContribs($locale = null)

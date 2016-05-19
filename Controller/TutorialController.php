@@ -58,21 +58,24 @@ class TutorialController extends BaseTutorialController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $tutorial = new Tutorial();
         $tutorial->setCategory($category);
-
+        $tutorial->setLocale( $request->getLocale() );
+        
         $form = $this->createForm(TutorialType::class, $tutorial, array( 'locale' => $request->getLocale() ));
 
         if ($form->handleRequest($request)->isValid()) {
             // Hydrate contribution
             $contrib = $tutorial->getTmpContrib();
             $contrib->setAuthor($user);
-            $contrib->setLocale( $request->getLocale() );
-            $contrib->setActive(true);
+            $contrib->setCurrent(true);
 
             // Persist Tutorial and Contribution
             $em = $this->getEm();
             $em->persist( $tutorial );
             $em->persist( $contrib );
             $em->flush();
+            
+            $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.tutorial.create'));
+            return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $tutorial->getSlug())));
         }
 
         return $this->render('DTutoBundle:Form/tutorial.html.twig', array(
@@ -83,27 +86,15 @@ class TutorialController extends BaseTutorialController
     /**
      * 
      * @Route("/show/{slug}", name="discutea_tuto_show_tutorial")
-     * @ParamConverter("tutorial", class="DTutoBundle:Tutorial", options={
-     *    "repository_method" = "findByTranslatedSlug",
-     *    "mapping": {"slug": "slug", "_locale": "locale"},
-     *    "map_method_signature" = true
-     * })
+     * @ParamConverter("tutorial")
      * 
      * @Security("is_granted('CanReadTutorial', tutorial)")
      * 
      */
     public function tutorialAction(Tutorial $tutorial)
     {
-
-        $contrib = $tutorial->getContributions()->filter(
-            function($entry) {
-                return in_array($entry->getActive(), array(true));
-            }
-        )->first();
-        
         return $this->render('DTutoBundle:tutorial.html.twig', array(
-            'tutorial' => $tutorial,
-            'contrib' => $contrib
+            'tutorial' => $tutorial
         ));     
         
     }

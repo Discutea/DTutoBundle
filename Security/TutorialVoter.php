@@ -76,14 +76,9 @@ class TutorialVoter extends Voter
     {
 
         $locale = $this->request->getLocale();
-        
-        $contrib = $tutorial->getContributions()->filter(
-            function($entry) {
-                return in_array($entry->getActive(), array(true));
-            }
-        )->first();
+        $contrib = $tutorial->getCurrent();
 
-        if ( ($tutorial->getStatus() === 1) && ($locale == $contrib->getLocale()) ) {
+        if ( ($contrib->getStatus() === 1) && ($locale == $contrib->getLocale()) ) {
             
             return true;
             

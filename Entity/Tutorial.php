@@ -5,7 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \Discutea\DTutoBundle\Entity\Category;
 use \Discutea\DTutoBundle\Entity\Contribution;
-use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Discutea\DTutoBundle\Repository\TutorialRepository")
@@ -13,7 +14,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  */
 class Tutorial
 {
-    use ORMBehaviors\Translatable\Translatable;
 
     /**
      * @var int
@@ -25,9 +25,36 @@ class Tutorial
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(length=80, type="string", nullable=false)
+     * @Assert\NotBlank()
+     */
+    protected $title;
+    
+    /**
+     * @var text
+     * 
+     * @ORM\Column(name="description", length=150, type="string", nullable=true)
+     *
+     */
+    protected $description;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(name="image_url", type="string", length=255, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $locale;
 
     /**
      * @ORM\ManyToOne(targetEntity="Discutea\DTutoBundle\Entity\Category", inversedBy="tutorials")
@@ -40,34 +67,23 @@ class Tutorial
      * @ORM\OrderBy({"date" = "desc"})
      */
     protected $contributions;
-
-    /**
-     *
-     * 1 = Validate
-     * 2 = NoValidate
-     * 3 = InProgress
-     * 
-     * @ORM\Column(type="smallint", nullable=false, options={"default" = 2})
-     * 
-     */
-    protected $status = 2;
-
+    
     /**
      * Temporary variable used only by onCreate method of TutorialListener
      */
     protected $tmpContrib;
-    
+
+    /**
+     * Current Contribution
+     */
+    protected $currentContribution;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->contributions = new ArrayCollection();
-    }
-
-    public function __call($method, $arguments)
-    {
-        return \Symfony\Component\PropertyAccess\PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
     }
 
     /**
@@ -78,6 +94,111 @@ class Tutorial
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Tutorial
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Tutorial
+     */
+    public function setdescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getdescription()
+    {
+        return $this->description;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set image url
+     *
+     * @param string $image
+     *
+     * @return this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
     /**
@@ -139,58 +260,6 @@ class Tutorial
     }
 
     /**
-     * Set image url
-     *
-     * @param string $image
-     *
-     * @return this
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Get Status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set status
-     * 
-     * 1 = Validate
-     * 2 = NoValidate
-     * 3 = InProgress
-     *
-     * @return this
-     */
-    public function setStatus($status)
-    {
-        if ( ( is_int($status) === false ) || ($status < 1) || ($status > 3) ) {
-            throw new \LogicException('The logic of the status property isn\'t respected!');
-        }
-        
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
      * Get tmpContrib
      *
      * @return integer
@@ -210,5 +279,40 @@ class Tutorial
         $this->tmpContrib = $tmpContrib;
         $this->tmpContrib->setTutorial($this);
         return $this;
+    }
+
+    /**
+     * Get current contribution
+     * use singleton
+     *
+     * @return \Discutea\DTutoBundle\Entity\Contribution
+     */
+    public function getCurrent()
+    {
+        if ($this->currentContribution === NULL) {
+            $this->currentContribution = $this->setCurrent();
+        }
+
+        return $this->currentContribution;
+    }
+    
+    /**
+     * Set current contribution
+     *
+     * @return \Discutea\DTutoBundle\Entity\Contribution
+     */
+    public function setCurrent()
+    {
+        $contrib = $this->getContributions()->filter(
+            function(Contribution $contribution) {
+                return in_array($contribution->getCurrent(), array(true));
+            }
+        );
+        
+        if ($contrib !== NULL) {
+            $contrib = $contrib->first();
+        }
+        
+        return $contrib;
     }
 }
