@@ -88,7 +88,7 @@ class TutorialVoter extends Voter
                 return true;
             }
 
-            if ($contrib->getAuthor() === $token->getUser()) {
+            if ($contrib->getContributor() === $token->getUser()) {
                 return true;
             }
 

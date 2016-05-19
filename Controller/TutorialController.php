@@ -60,12 +60,12 @@ class TutorialController extends BaseTutorialController
         $tutorial->setCategory($category);
         $tutorial->setLocale( $request->getLocale() );
         
-        $form = $this->createForm(TutorialType::class, $tutorial, array( 'locale' => $request->getLocale() ));
+        $form = $this->createForm(TutorialType::class, $tutorial);
 
         if ($form->handleRequest($request)->isValid()) {
             // Hydrate contribution
             $contrib = $tutorial->getTmpContrib();
-            $contrib->setAuthor($user);
+            $contrib->setContributor($user);
             $contrib->setCurrent(true);
 
             // Persist Tutorial and Contribution

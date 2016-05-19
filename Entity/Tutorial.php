@@ -303,6 +303,7 @@ class Tutorial
      */
     public function setCurrent()
     {
+        
         $contrib = $this->getContributions()->filter(
             function(Contribution $contribution) {
                 return in_array($contribution->getCurrent(), array(true));

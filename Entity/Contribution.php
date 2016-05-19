@@ -5,7 +5,6 @@ namespace Discutea\DTutoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use \Discutea\DTutoBundle\Entity\Tutorial;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * 
@@ -49,18 +48,24 @@ class Contribution
      * @ORM\ManyToOne(targetEntity="Symfony\Component\Security\Core\User\UserInterface")
      * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
      */
-    protected $author;
+    protected $contributor;
 
     /**
      *
-     * 1 = Validate
-     * 2 = NoValidate
-     * 3 = InProgress
+     * 0 = InProgress ( contribution being written )
+     * 1 = Submitted  ( Contribution submitted and not verified by a moderator )
+     * 2 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+     * 3 = Validated  ( Contribution submitted and approved by a moderator visible by all )
      * 
      * @ORM\Column(type="smallint", nullable=false, options={"default" = 2})
      * 
      */
-    protected $status = 2;
+    protected $status = 0;
+
+    /**
+     * @ORM\Column(name="motif_rejected", type="text", nullable=true)
+     */
+    protected $reason;
 
     public function __construct() {
         $this->setDate(new \DateTime());
@@ -189,13 +194,13 @@ class Contribution
     /**
      * Set authos
      *
-     * @param \Discutea\UsersBundle\Entity\Users $author
+     * @param \Discutea\UsersBundle\Entity\Users $contributor
      *
      * @return Contribution
      */
-    public function setAuthor(UserInterface $author)
+    public function setContributor(UserInterface $contributor)
     {
-        $this->author = $author;
+        $this->contributor = $contributor;
 
         return $this;
     }
@@ -205,9 +210,9 @@ class Contribution
      *
      * @return Symfony\Component\Security\Core\User\UserInterface
      */
-    public function getAuthor()
+    public function getContributoror()
     {
-        return $this->author;
+        return $this->contributor;
     }
 
     /**
@@ -247,20 +252,43 @@ class Contribution
     /**
      * Set status
      * 
-     * 1 = Validate
-     * 2 = NoValidate
-     * 3 = InProgress
-     *
+     * 0 = InProgress ( contribution being written )
+     * 1 = Submitted  ( Contribution submitted and not verified by a moderator )
+     * 2 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+     * 3 = Validated  ( Contribution submitted and approved by a moderator visible by all )
+     * 
      * @return this
      */
     public function setStatus($status)
     {
-        if ( ( is_int($status) === false ) || ($status < 1) || ($status > 4) ) {
+        if ( ( is_int($status) === false ) || ($status < 0) || ($status > 3) ) {
             throw new \LogicException('The logic of the status property isn\'t respected!');
         }
         
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * Set reason
+     * 
+     * @var string $reason
+     */
+    public function setReason($reason)
+    { 
+        $this->reason = $reason;
+
+        return $this;
+    }
+
+    /**
+     * Get Reason
+     *
+     * @return string
+     */
+    public function getReason()
+    {
+        return $this->reason;
     }
 }

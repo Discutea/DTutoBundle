@@ -12,10 +12,6 @@ class DTutoExtension extends \Twig_Extension
     
     private $request;
     
-    private $params;
-    
-    private $prefixUrl;
-    
     public function __construct (EntityManager $em, RequestStack $request) {
         $this->em = $em;
         $this->request = $request->getCurrentRequest();
@@ -33,7 +29,7 @@ class DTutoExtension extends \Twig_Extension
 
     public function tutoNoValidate($locale = null)
     {
-        $tutorials = $this->em->getRepository('DTutoBundle:Tutorial')->findByStatus(2);
+        $tutorials = $this->em->getRepository('DTutoBundle:Tutorial')->findAll();
 
         return $tutorials;
     }
