@@ -31,7 +31,6 @@ use ORMBehaviors\Translatable\Translatable;
 
     /**
      * @ORM\OneToMany(targetEntity="Discutea\DTutoBundle\Entity\Tutorial", mappedBy="category", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"date" = "desc"})
      */
     protected $tutorials;
 

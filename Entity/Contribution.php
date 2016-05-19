@@ -35,10 +35,15 @@ class Contribution
 
     /**
      * @ORM\ManyToOne(targetEntity="Discutea\DTutoBundle\Entity\Tutorial", inversedBy="contributions")
-     * @ORM\JoinColumn(name="tutorial_id", referencedColumnName="id", nullable=false, onDelete="cascade")
+     * @ORM\JoinColumn(name="tutorial_id", referencedColumnName="id", nullable=false)
      */
     protected $tutorial;
-    
+
+    /**
+     * * @ORM\Column(type="boolean", options={"default":false})
+     */
+    protected $active;
+
     /**
      * @ORM\ManyToOne(targetEntity="Symfony\Component\Security\Core\User\UserInterface")
      * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
@@ -220,5 +225,29 @@ class Contribution
         $this->locale = $locale;
 
         return $this;
+    }
+
+    /**
+     * Set active
+     *
+     * @param string $active
+     *
+     * @return this
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

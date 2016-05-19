@@ -68,24 +68,35 @@ class TutorialVoter extends Voter
      * 
      * Control if user's is autorized to Read forum
      * 
-     * @param Forum $forum
+     * @param Forum $tutorial
      * @param TokenInterface $token
      * @return boolean
      */
     public function canReadTutorial(Tutorial $tutorial, TokenInterface $token)
     {
 
-        $contributions = $tutorial->getContributions();
         $locale = $this->request->getLocale();
         
-        if (NULL !== ( $validContribution = $tutorial->getValidContribution() ) ) {
-            if ( $locale == $validContribution->getLocale() ) {
-                return true;
+        $contrib = $tutorial->getContributions()->filter(
+            function($entry) {
+                return in_array($entry->getActive(), array(true));
             }
+        )->first();
+
+        if ( ($tutorial->getStatus() === 1) && ($locale == $contrib->getLocale()) ) {
+            
+            return true;
+            
         } else {
-            if ( $tutorial->getAuthor() === $token->getUser() ) {
+            
+            if ($this->decisionManager->decide($token, array('ROLE_MODERATOR'))) {
                 return true;
             }
+
+            if ($contrib->getAuthor() === $token->getUser()) {
+                return true;
+            }
+
         }
 
         return false;

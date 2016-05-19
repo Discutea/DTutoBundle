@@ -6,7 +6,6 @@ use \Doctrine\Common\Collections\ArrayCollection;
 use \Discutea\DTutoBundle\Entity\Category;
 use \Discutea\DTutoBundle\Entity\Contribution;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Discutea\DTutoBundle\Repository\TutorialRepository")
@@ -37,51 +36,33 @@ class Tutorial
     protected $category;
     
     /**
-     * @ORM\OneToMany(targetEntity="Discutea\DTutoBundle\Entity\Contribution", mappedBy="tutorial", cascade={"persist", "remove"}))
+     * @ORM\OneToMany(targetEntity="Discutea\DTutoBundle\Entity\Contribution", mappedBy="tutorial", cascade={"remove"}))
      * @ORM\OrderBy({"date" = "desc"})
      */
     protected $contributions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Symfony\Component\Security\Core\User\UserInterface")
-     * @ORM\JoinColumn(name="opening_by", nullable=true, referencedColumnName="id")
-     */
-    protected $author;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Discutea\DTutoBundle\Entity\Contribution")
-     * @ORM\JoinColumn(name="valid_contrib_id", nullable=true, referencedColumnName="id")
-     */
-    protected $validContribution;
-
-    /**
      *
-     * Provisoir contibution
+     * 1 = Validate
+     * 2 = NoValidate
+     * 3 = InProgress
+     * 
+     * @ORM\Column(type="smallint", nullable=false, options={"default" = 2})
      * 
      */
-    protected $tmpContribution;
+    protected $status = 2;
 
     /**
-     * @ORM\Column(name="opening_at", type="datetime", nullable=true)
+     * Temporary variable used only by onCreate method of TutorialListener
      */
-    protected $date;
-
+    protected $tmpContrib;
+    
     /**
      * Constructor
      */
-    public function __construct(Category $category = NULL, UserInterface $user = null)
+    public function __construct()
     {
-        $this->contrubutions = new ArrayCollection();
-        $this->setDate(new \DateTime());
-
-        if ($user !== NULL) {
-            $this->setAuthor($user);
-        }
-
-        if ($category !== NULL) {
-            $this->setCategory($category);
-        }
-
+        $this->contributions = new ArrayCollection();
     }
 
     public function __call($method, $arguments)
@@ -180,102 +161,54 @@ class Tutorial
     }
 
     /**
-     * Set date
+     * Get Status
      *
-     * @param \DateTime $date
-     *
-     * @return Contribution
+     * @return integer
      */
-    public function setDate($date)
+    public function getStatus()
     {
-        $this->date = $date;
-
-        return $this;
+        return $this->status;
     }
 
     /**
-     * Get date
+     * Set status
+     * 
+     * 1 = Validate
+     * 2 = NoValidate
+     * 3 = InProgress
      *
-     * @return \DateTime
+     * @return this
      */
-    public function getDate()
+    public function setStatus($status)
     {
-        return $this->date;
-    }
-
-    /**
-     * Set author
-     *
-     * @param \Discutea\UsersBundle\Entity\Users $author
-     *
-     * @return Tutorial
-     */
-    public function setAuthor(UserInterface $author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return \Discutea\UsersBundle\Entity\Users
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set validContribution
-     *
-     * @param \Discutea\DTutoBundle\Entity\Contribution $validContribution
-     *
-     * @return Tutorial
-     */
-    public function setValidContribution(Contribution $validContribution)
-    {
-        $this->validContribution = $validContribution;
-
-        return $this;
-    }
-
-    /**
-     * Get validContribution
-     *
-     * @return \Discutea\DTutoBundle\Entity\Contribution
-     */
-    public function getValidContribution()
-    {
-        return $this->validContribution;
-    }
-
-    /**
-     * Get tmpContribution
-     *
-     * @return \Discutea\DTutoBundle\Entity\Contribution
-     */
-    public function getTmpContribution()
-    {
-        return $this->tmpContribution;
-    }
-
-    /**
-     * Set tmpContribution
-     *
-     * @param \Discutea\DTutoBundle\Entity\Contribution $tmpContribution
-     *
-     * @return Tutorial
-     */
-    public function setTmpContribution(Contribution $tmpContribution)
-    {
-        $this->tmpContribution = $tmpContribution;
-        $this->tmpContribution->setTutorial($this);
-        $this->tmpContribution->setAuthor( $this->getAuthor() );
+        if ( ( is_int($status) === false ) || ($status < 1) || ($status > 3) ) {
+            throw new \LogicException('The logic of the status property isn\'t respected!');
+        }
         
+        $this->status = $status;
 
         return $this;
     }
 
+    /**
+     * Get tmpContrib
+     *
+     * @return integer
+     */
+    public function getTmpContrib()
+    {
+        return $this->tmpContrib;
+    }
+
+    /**
+     * Set tmpContrib
+     * 
+     * @return this
+     */
+    public function setTmpContrib($tmpContrib)
+    {
+        $this->tmpContrib = $tmpContrib;
+        $this->tmpContrib->setTutorial($this);
+        return $this;
+    }
 }

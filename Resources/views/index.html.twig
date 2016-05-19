@@ -15,6 +15,7 @@
           <h2>{{ category.title }}:</h2>
           {% for tutorial in category.tutorials if is_granted('CanReadTutorial', tutorial) %}
             {{ dump(tutorial) }}
+            <a href="{{ path('discutea_tuto_show_tutorial', {'slug': tutorial.slug}) }}">{{ tutorial.title }}</a>
               {% for contrib in tutorial.contributions %}
                 {{ dump(contrib) }}
               {% endfor %}

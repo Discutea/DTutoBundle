@@ -44,7 +44,7 @@ class TutorialController extends BaseTutorialController
      * 
      * @Route("/new/{id}", name="discutea_tuto_create_tutorial")
      * @ParamConverter("category")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      * 
      * @param object $request Symfony\Component\HttpFoundation\Request
      * @param objct $category Discutea\DForumBundle\Entity\Category
@@ -56,19 +56,55 @@ class TutorialController extends BaseTutorialController
     public function newTutorialAction(Request $request, Category $category)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $tutorial = new Tutorial($category, $user);
+        $tutorial = new Tutorial();
+        $tutorial->setCategory($category);
+
         $form = $this->createForm(TutorialType::class, $tutorial, array( 'locale' => $request->getLocale() ));
 
         if ($form->handleRequest($request)->isValid()) {
-            $tutorial->getTmpContribution()->setLocale($request->getLocale());
+            // Hydrate contribution
+            $contrib = $tutorial->getTmpContrib();
+            $contrib->setAuthor($user);
+            $contrib->setLocale( $request->getLocale() );
+            $contrib->setActive(true);
+
+            // Persist Tutorial and Contribution
             $em = $this->getEm();
-            $em->persist($tutorial);
-            $em->persist( $tutorial->getTmpContribution() );
+            $em->persist( $tutorial );
+            $em->persist( $contrib );
             $em->flush();
         }
 
         return $this->render('DTutoBundle:Form/tutorial.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * 
+     * @Route("/show/{slug}", name="discutea_tuto_show_tutorial")
+     * @ParamConverter("tutorial", class="DTutoBundle:Tutorial", options={
+     *    "repository_method" = "findByTranslatedSlug",
+     *    "mapping": {"slug": "slug", "_locale": "locale"},
+     *    "map_method_signature" = true
+     * })
+     * 
+     * @Security("is_granted('CanReadTutorial', tutorial)")
+     * 
+     */
+    public function tutorialAction(Tutorial $tutorial)
+    {
+
+        $contrib = $tutorial->getContributions()->filter(
+            function($entry) {
+                return in_array($entry->getActive(), array(true));
+            }
+        )->first();
+        
+        return $this->render('DTutoBundle:tutorial.html.twig', array(
+            'tutorial' => $tutorial,
+            'contrib' => $contrib
+        ));     
+        
     }
 }

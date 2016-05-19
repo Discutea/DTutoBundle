@@ -1,0 +1,28 @@
+{% extends 'DTutoBundle::layout.html.twig' %}
+
+{% block title %}Tutorial{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    
+ 
+  <div class="text-center col-xs-12">
+    {% if tutorial.status == 2 %}
+      <div class="alert alert-danger">
+        <strong>Attention!</strong> Ce tutoriel n'a pas été encore validé par un administrateur!
+      </div>
+    {% elseif tutorial.status == 3 %}
+      <div class="alert alert-warning">
+        <strong>Attention!</strong> Ce tutoriel est en cours de redaction!
+      </div>  
+    {% endif %}
+    
+        {{ dump(tutorial) }}
+    {{ dump(contrib) }}
+    <h1>{{ tutorial.title }}</h1>
+    <p>{{ contrib.content }}</p>
+
+  </div>
+    
+{% endblock %}

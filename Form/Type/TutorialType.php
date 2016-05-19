@@ -35,11 +35,7 @@ class TutorialType extends AbstractType
                 )
             ))
             ->add('image', UrlType::class, array('required' => false))
-            ->add('tmpContribution', ContributionType::class)
-            ->add('category', EntityType::class, array(
-                'class' => 'DTutoBundle:Category',
-                'choice_label' => 'translations['.$locale.'].title',
-            ))
+            ->add('tmpContrib', ContributionType::class)
             ->add('save', SubmitType::class)
         ;
     }
