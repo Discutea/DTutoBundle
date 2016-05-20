@@ -19,7 +19,6 @@ services:
         class: Discutea\DTutoBundle\Twig\DTutoExtension
         arguments: 
             - '@doctrine.orm.entity_manager'
-            - '@twig'
         public: false
         tags:
             - { name: twig.extension }

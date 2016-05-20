@@ -65,7 +65,7 @@ class Contribution
     /**
      * @ORM\Column(name="motif_rejected", type="text", nullable=true)
      */
-    protected $reason;
+    protected $message;
 
     public function __construct(UserInterface $user = null) {
         
@@ -266,7 +266,7 @@ class Contribution
      */
     public function setStatus($status)
     {
-        if ( ( is_int($status) === false ) || ($status < 0) || ($status > 3) ) {
+        if ( ( is_int($status) === false ) || ($status < 0) || ($status > 4) ) {
             throw new \LogicException('The logic of the status property isn\'t respected!');
         }
         
@@ -276,24 +276,24 @@ class Contribution
     }
 
     /**
-     * Set reason
+     * Set message
      * 
-     * @var string $reason
+     * @var string $message
      */
-    public function setReason($reason)
+    public function setMessage($message)
     { 
-        $this->reason = $reason;
+        $this->message = $message;
 
         return $this;
     }
 
     /**
-     * Get Reason
+     * Get Message
      *
      * @return string
      */
-    public function getReason()
+    public function getMessage()
     {
-        return $this->reason;
+        return $this->message;
     }
 }

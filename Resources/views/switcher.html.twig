@@ -1,19 +1,24 @@
-<div class="pull-right">
-
 <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    <strong>Others Contributions</strong>
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="switcher">
-    {% for contrib in contribs %}
-        {% if contrib != current %}
-    <li><a href="{{ path('discutea_tuto_show_other_contrib', {'slug': contrib.tutorial.slug, 'id': contrib.id}) }}">{{ contrib.date|date("m/d/Y") }}</a></li>
+    {% if current == true %}
+      <button class="btn btn-xs btn-success dropdown-toggle" type="button" id="switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <strong>Current tutorial</strong>
+        <span class="caret"></span>
+      </button>
     {% else %}
-    <li class="success"><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">Current version</a></li>
+      <button class="btn btn-xs btn-danger dropdown-toggle" type="button" id="switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <strong>{{ contribution.date|date("m/d/Y") }}</strong>
+        <span class="caret"></span>
+      </button>
     {% endif %}
-    {% endfor %}
-  </ul>
+    
+    <ul class="dropdown-menu" aria-labelledby="switcher">
+      {% for contrib in contribs if contribution != contrib and is_granted('CanReadTutorial', tutorial) %}
+        {% if contrib != tutorial.current %}
+          <li><a href="{{ path('discutea_tuto_show_other_contrib', {'slug': contrib.tutorial.slug, 'id': contrib.id}) }}">{{ contrib.date|date("m/d/Y") }}</a></li>
+        {% else %}
+          <li><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">Current version</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
 </div>
-</div>
-<div class="clearfix"></div>
+<br />

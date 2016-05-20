@@ -85,7 +85,7 @@ class ContributionVoter extends Voter
          * 
          */
 
-        if ( ($contribution->getStatus() != 3) && ($contribution->getContributor() === $token->getUser()) ) {
+        if ( ($contribution->getStatus() !== 3) && ($contribution->getContributor() === $token->getUser()) ) {
             return true;
         } 
 

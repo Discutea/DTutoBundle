@@ -3,14 +3,8 @@
 {% block title %}{{ tutorial.title }}{% endblock %}
 
 {% block body %}
+    {% set contribs = tutorial.contributions %}
   <div class="text-center col-xs-12">
-    {% if contribution is defined %}
-      <div class="alert alert-danger">
-        <strong>Danger!</strong> This contribution is not current version!
-      </div>
-    {% else %}
-    {% set contribution = tutorial.current %}
-    {% endif %}
     
     {% if contribution.status == 0 %}
       <div class="alert alert-info">
@@ -26,20 +20,22 @@
       </div>
     {% endif %}
    
-      {% if tutorial.contributions|length > 1 %}
-         {{ getTutoContribs(tutorial)|raw }}
+    <div class="pull-right">
+    {% if contribs|length > 1 %}{% include 'DTutoBundle:switcher.html.twig' %}{% endif %}
+      
+      {% if is_granted('CanEditContribution', contribution) %}
+          <a href="{{ path('discutea_tuto_contrib_edit', {'id': contribution.id}) }}" class="btn btn-xs btn-warning">Editer</a>
       {% endif %}
- 
+      <a href="{{ path('discutea_tuto_addcontrib_tutorial', {'id': tutorial.id}) }}" class="btn btn-xs btn-primary">Contribuer</a>
+      {% if is_granted('ROLE_MODERATOR') and contribution.current == false %}
+          <a href="{{ path('discutea_tuto_setactive_contrib', {'tid': tutorial.id, 'cid': contribution.id}) }}" class="btn btn-xs btn-default">Definir comme version courante</a>
+      {% endif %}
+    </div>
+    <div class="clearfix"></div>
  
     <h1>{{ tutorial.title }}</h1>
     <p>
-      {% if is_granted('CanEditContribution', contribution) %}
-          <a href="{{ path('discutea_tuto_contrib_edit', {'id': contribution.id}) }}">Editer</a>
-          <br />
-          <a href="{{ path('discutea_tuto_addcontrib_tutorial', {'id': tutorial.id}) }}">Contribuer</a>
-          
-          <br /><br />
-      {% endif %}
+      
       
       {{ contribution.content }}</p>
 

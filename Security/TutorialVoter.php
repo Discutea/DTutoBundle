@@ -74,20 +74,25 @@ class TutorialVoter extends Voter
 
         $contrib = $tutorial->getCurrent();
 
+        /* rappel status contributions
+         * 
+         * 0 = InProgress ( contribution being written )
+         * 1 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+         * 2 = Submitted  ( Contribution submitted and not verified by a moderator )
+         * 3 = Validated  ( Contribution submitted and approved by a moderator visible by all )
+         * 
+         */
+        
         if ($contrib->getStatus() === 3) {
-            
             return true;
-            
-        } else {
-            
-            if ($this->decisionManager->decide($token, array('ROLE_MODERATOR'))) {
-                return true;
-            }
+        }
 
-            if ($contrib->getContributor() === $token->getUser()) {
-                return true;
-            }
+        if ($this->decisionManager->decide($token, array('ROLE_MODERATOR'))) {
+            return true;
+        }
 
+        if ($contrib->getContributor() === $token->getUser()) {
+            return true;
         }
 
         return false;

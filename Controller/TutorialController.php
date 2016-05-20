@@ -11,6 +11,7 @@ use Discutea\DTutoBundle\Entity\Category;
 use Discutea\DTutoBundle\Entity\Contribution;
 use Discutea\DTutoBundle\Form\Type\TutorialType;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
+use Discutea\DTutoBundle\Form\Type\ContributionModeratorType;
 
 /**
  * TutorialController 
@@ -95,9 +96,10 @@ class TutorialController extends BaseTutorialController
     public function tutorialAction(Tutorial $tutorial)
     {
         return $this->render('DTutoBundle:tutorial.html.twig', array(
-            'tutorial' => $tutorial
-        ));     
-        
+            'tutorial' => $tutorial,
+            'contribution' => $tutorial->getCurrent(),
+            'current' => true
+        ));
     }
 
     /**
@@ -111,9 +113,9 @@ class TutorialController extends BaseTutorialController
     {
         return $this->render('DTutoBundle:tutorial.html.twig', array(
             'tutorial' => $tutorial,
-            'contribution' => $contribution
-        ));     
-        
+            'contribution' => $contribution,
+            'current' => false
+        ));
     }
 
     /**
@@ -134,8 +136,12 @@ class TutorialController extends BaseTutorialController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $tutorial->setTmpContrib( new Contribution( $user ) );
         $contrib = $tutorial->getTmpContrib();
-        
-        $form = $this->createForm(ContributionType::class, $contrib);
+
+        if (true === $this->getAuthorization()->isGranted('ROLE_MODERATOR')) {
+            $form = $this->createForm(ContributionModeratorType::class, $contrib);
+        } else {
+            $form = $this->createForm(ContributionType::class, $contrib);
+        }
 
         if ($form->handleRequest($request)->isValid()) {
             
@@ -152,5 +158,34 @@ class TutorialController extends BaseTutorialController
             'form' => $form->createView()
         ));
     }
-    
+
+    /**
+     * 
+     * @Route("/setactive/{tid}/{cid}", name="discutea_tuto_setactive_contrib")
+     * @ParamConverter("tutorial", options={"mapping": {"tid": "id"}})
+     * @ParamConverter("contribution", options={"mapping": {"cid": "id"}})
+     * @Security("is_granted('ROLE_MODERATOR')")
+     * 
+     */
+    public function activeContribAction(Request $request, Tutorial $tutorial, Contribution $contribution)
+    {
+        if ($tutorial->getCurrent() !== $contribution) {
+            
+            $em = $this->getEm();
+
+            foreach ($tutorial->getContributions() as $contrib) {
+                if ($contrib->getCurrent() === true) {
+                    $contrib->setCurrent(false);
+                    $em->persist($contrib);
+                }
+            }
+            
+            $contribution->setCurrent(true);
+            $em->persist($contribution);
+            $em->flush();
+        }
+        
+        $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.setactive.contrib'));
+        return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $tutorial->getSlug())));
+    }
 }

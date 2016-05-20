@@ -2,17 +2,14 @@
 namespace Discutea\DTutoBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
-use Discutea\DTutoBundle\Entity\Tutorial;
 
 class DTutoExtension extends \Twig_Extension
 {
     
     private $em;
-    private $twig;
     
-    public function __construct (EntityManager $em, \Twig_Environment $twig) {
+    public function __construct (EntityManager $em) {
         $this->em = $em;
-        $this->twig = $twig;
     }
     
     public function getFunctions()
@@ -24,14 +21,6 @@ class DTutoExtension extends \Twig_Extension
             new \Twig_SimpleFunction('lastTutoContribs', array($this, 'lastTutoContribs')),
             new \Twig_SimpleFunction('lastTutorials', array($this, 'lastTutorials')),
         );
-    }
-
-    public function getTutoContribs(Tutorial $tutorial)
-    {
-        return $this->twig->render('DTutoBundle:switcher.html.twig', array(
-            'contribs' => $tutorial->getContributions(),
-            'current'  => $tutorial->getCurrent()
-        ));
     }
 
     public function tutoNoValidate()
