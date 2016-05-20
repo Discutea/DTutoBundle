@@ -42,7 +42,7 @@ class Contribution
     /**
      * @ORM\Column(name="current_version", type="boolean", options={"default":false})
      */
-    protected $current;
+    protected $current = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="Symfony\Component\Security\Core\User\UserInterface")
@@ -53,8 +53,8 @@ class Contribution
     /**
      *
      * 0 = InProgress ( contribution being written )
-     * 1 = Submitted  ( Contribution submitted and not verified by a moderator )
-     * 2 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+     * 1 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+     * 2 = Submitted  ( Contribution submitted and not verified by a moderator )
      * 3 = Validated  ( Contribution submitted and approved by a moderator visible by all )
      * 
      * @ORM\Column(type="smallint", nullable=false, options={"default" = 2})
@@ -67,7 +67,12 @@ class Contribution
      */
     protected $reason;
 
-    public function __construct() {
+    public function __construct(UserInterface $user = null) {
+        
+        if ($user !== NULL) {
+            $this->setContributor($user);
+        }
+        
         $this->setDate(new \DateTime());
     }
 
@@ -253,8 +258,8 @@ class Contribution
      * Set status
      * 
      * 0 = InProgress ( contribution being written )
-     * 1 = Submitted  ( Contribution submitted and not verified by a moderator )
-     * 2 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+     * 1 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+     * 2 = Submitted  ( Contribution submitted and not verified by a moderator )
      * 3 = Validated  ( Contribution submitted and approved by a moderator visible by all )
      * 
      * @return this

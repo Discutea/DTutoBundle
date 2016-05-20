@@ -239,6 +239,12 @@ class Tutorial
      */
     public function getTmpContrib()
     {
+        /*
+    }
+        if (NULL === $this->tmpContrib) {
+            $this->tmpContrib = $this->setTmpContrib();
+        }
+        */
         return $this->tmpContrib;
     }
 

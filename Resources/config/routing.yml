@@ -12,3 +12,8 @@ discutea_tutorial_admin_routing:
     resource: "@DTutoBundle/Controller/AdminController.php"
     prefix:   /
     type:     annotation
+
+discutea_tutorial_contribution_routing:
+    resource: "@DTutoBundle/Controller/ContributionController.php"
+    prefix:   /
+    type:     annotation

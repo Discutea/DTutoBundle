@@ -22,7 +22,16 @@
     {% endif %}
 
     <h1>{{ tutorial.title }}</h1>
-    <p>{{ contribution.content }}</p>
+    <p>
+      {% if is_granted('CanEditContribution', contribution) %}
+          <a href="{{ path('discutea_tuto_contrib_edit', {'id': contribution.id}) }}">Editer</a>
+          <br />
+          <a href="{{ path('discutea_tuto_addcontrib_tutorial', {'id': tutorial.id}) }}">Contribuer</a>
+          
+          <br /><br />
+      {% endif %}
+      
+      {{ contribution.content }}</p>
 
     <h2>Dump tutorial</h2>
     {{ dump(tutorial) }}

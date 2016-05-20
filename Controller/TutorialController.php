@@ -8,7 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Discutea\DTutoBundle\Entity\Tutorial;
 use Discutea\DTutoBundle\Entity\Category;
+use Discutea\DTutoBundle\Entity\Contribution;
 use Discutea\DTutoBundle\Form\Type\TutorialType;
+use Discutea\DTutoBundle\Form\Type\ContributionType;
 
 /**
  * TutorialController 
@@ -98,4 +100,42 @@ class TutorialController extends BaseTutorialController
         ));     
         
     }
+    
+    /**
+     * 
+     * @Route("/add/contrib/{id}", name="discutea_tuto_addcontrib_tutorial")
+     * @ParamConverter("tutorial")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
+     * 
+     * @param object $request Symfony\Component\HttpFoundation\Request
+     * @param objct $tutorial Discutea\DForumBundle\Entity\Tutorial
+     * 
+     * @return object Symfony\Component\HttpFoundation\RedirectResponse redirecting moderator's dashboard
+     * @return objet Symfony\Component\HttpFoundation\Response
+     * 
+     */
+    public function addContribAction(Request $request, Tutorial $tutorial)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $tutorial->setTmpContrib( new Contribution( $user ) );
+        $contrib = $tutorial->getTmpContrib();
+        
+        $form = $this->createForm(ContributionType::class, $contrib);
+
+        if ($form->handleRequest($request)->isValid()) {
+            
+ 
+            $em = $this->getEm();
+            $em->persist( $contrib );
+            $em->flush();
+            
+            $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.contrib.create'));
+            return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $tutorial->getSlug())));
+        }
+
+        return $this->render('DTutoBundle:Form/contribution.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+    
 }

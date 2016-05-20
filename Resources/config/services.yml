@@ -7,6 +7,14 @@ services:
         tags:
             - { name: security.voter }
 
+    discutea.security.contribution_voter:
+        class: Discutea\DTutoBundle\Security\ContributionVoter
+        arguments: 
+            - '@security.access.decision_manager'
+        public: false
+        tags:
+            - { name: security.voter }
+
     DTutoBundle.twig_extension:
         class: Discutea\DTutoBundle\Twig\DTutoExtension
         arguments: 
