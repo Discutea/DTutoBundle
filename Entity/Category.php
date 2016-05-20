@@ -34,6 +34,10 @@ use ORMBehaviors\Translatable\Translatable;
      */
     protected $tutorials;
 
+    /**
+     * @ORM\Column(name="image_url", type="string", length=255, nullable=true)
+     */
+    private $image;
 
     /**
      * Constructor
@@ -116,5 +120,28 @@ use ORMBehaviors\Translatable\Translatable;
     {
         return $this->tutorials;
     }
+
+    /**
+     * Set image url
+     *
+     * @param string $image
+     *
+     * @return this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
 
 }

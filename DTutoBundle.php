@@ -9,6 +9,6 @@ class DTutoBundle extends Bundle
 {
     public function getContainerExtension()
     {
-        return new TutorialExtension();
+       return new TutorialExtension();
     }
 }

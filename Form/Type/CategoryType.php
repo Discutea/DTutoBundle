@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class CategoryType extends AbstractType
 {
@@ -14,6 +15,7 @@ class CategoryType extends AbstractType
         $builder
             ->add('translations', TranslationsType::class)
             ->add('position')
+            ->add('image', UrlType::class, array('required' => false))
             ->add('save', SubmitType::class)
         ;
     }

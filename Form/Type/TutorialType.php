@@ -4,9 +4,6 @@ namespace Discutea\DTutoBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
 
 class TutorialType extends AbstractType
@@ -20,9 +17,7 @@ class TutorialType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('image', UrlType::class, array('required' => false))
             ->add('tmpContrib', ContributionType::class)
-            ->add('save', SubmitType::class)
         ;
     }
     

@@ -210,7 +210,7 @@ class Contribution
      *
      * @return Symfony\Component\Security\Core\User\UserInterface
      */
-    public function getContributoror()
+    public function getContributor()
     {
         return $this->contributor;
     }

@@ -1,29 +1,35 @@
 {% extends 'DTutoBundle::layout.html.twig' %}
 
-{% block title %}Tutorial{% endblock %}
-
-{% block stylesheets %}{% endblock %}
+{% block title %}{{ tutorial.title }}{% endblock %}
 
 {% block body %}
     
  
   <div class="text-center col-xs-12">
     {% set contribution = tutorial.current %}
-    {% if contribution.status == 2 %}
-      <div class="alert alert-danger">
-        <strong>Attention!</strong> Ce tutoriel n'a pas été encore validé par un administrateur!
-      </div>
-    {% elseif contribution.status == 3 %}
-      <div class="alert alert-warning">
+    {% if contribution.status == 0 %}
+      <div class="alert alert-info">
         <strong>Attention!</strong> Ce tutoriel est en cours de redaction!
       </div>  
+    {% elseif contribution.status == 1 %}
+      <div class="alert alert-warning">
+        <strong>Attention!</strong> Ce tutoriel n'a pas été encore validé par un administrateur!
+      </div>
+    {% elseif contribution.status == 2 %}
+      <div class="alert alert-danger">
+        <strong>Attention!</strong> Ce tutoriel a été refusé!
+      </div>
     {% endif %}
-    
-        {{ dump(tutorial) }}
-    {{ dump(contribution) }}
+
     <h1>{{ tutorial.title }}</h1>
     <p>{{ contribution.content }}</p>
 
+    <h2>Dump tutorial</h2>
+    {{ dump(tutorial) }}
+    <h2>Dump current contribution</h2>
+    {{ dump(contribution) }}
+    <h2>Dump creator of the tutorial</h2>
+    {{ dump(contribution.contributor) }}
   </div>
     
 {% endblock %}

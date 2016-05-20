@@ -4,7 +4,6 @@ namespace Discutea\DTutoBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Discutea\DTutoBundle\Entity\Tutorial;
 
 /**
@@ -25,17 +24,15 @@ class TutorialVoter extends Voter
      * 
      */
     private $decisionManager;
-    
-    private $request;
+
 
     /**
      * 
      * @param AccessDecisionManagerInterface $decisionManager
      */
-    public function __construct(AccessDecisionManagerInterface $decisionManager, RequestStack $request)
+    public function __construct(AccessDecisionManagerInterface $decisionManager)
     {
         $this->decisionManager = $decisionManager;
-        $this->request = $request->getCurrentRequest();
     }
     
     protected function supports($attribute, $tutorial)
@@ -47,7 +44,7 @@ class TutorialVoter extends Voter
 
         // only vote on Forum objects inside this voter
         if (!$tutorial instanceof Tutorial) {
-            return false;
+            return true;
         }
 
         return true;
@@ -66,19 +63,18 @@ class TutorialVoter extends Voter
 
     /**
      * 
-     * Control if user's is autorized to Read forum
+     * Control if user's is autorized to Read turorial
      * 
-     * @param Forum $tutorial
+     * @param Tutorial $tutorial
      * @param TokenInterface $token
      * @return boolean
      */
     public function canReadTutorial(Tutorial $tutorial, TokenInterface $token)
     {
 
-        $locale = $this->request->getLocale();
         $contrib = $tutorial->getCurrent();
 
-        if ( ($contrib->getStatus() === 1) && ($locale == $contrib->getLocale()) ) {
+        if ($contrib->getStatus() === 3) {
             
             return true;
             

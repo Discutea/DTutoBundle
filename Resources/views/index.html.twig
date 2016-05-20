@@ -1,31 +1,30 @@
 {% extends 'DTutoBundle::layout.html.twig' %}
 
-{% block title %}
-  Tutorial
-{% endblock %}
-
-{% block stylesheets %}{% endblock %}
+{% block title %}Index tutorials{% endblock %}
 
 {% block body %}
-  <div class="text-center col-xs-12">
-    <h1>index tutorials!</h1>
-    <ul class="list-unstyled">
-      {% for category in categories %}
-        <li>
-          <h2>{{ category.title }}:</h2>
-          {% for tutorial in category.tutorials if is_granted('CanReadTutorial', tutorial) %}
-            {{ dump(tutorial) }}
-            <a href="{{ path('discutea_tuto_show_tutorial', {'slug': tutorial.slug}) }}">{{ tutorial.title }}</a>
-              {% for contrib in tutorial.contributions %}
-                {{ dump(contrib) }}
-              {% endfor %}
-          {% else %}
-             <a href="{{ path('discutea_tuto_create_tutorial', {'id': category.id}) }}" class="btn btn-sm btn-success">{{ 'discutea.tuto.tuto.create'|trans }}</a>
-         {% endfor %}
-        </li>
+  <h1>index tutorials!</h1>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    {% for category in categories %}
+      <li{% if categories|first == category %} class="active"{% endif %}>
+        <a href="#{{ category.id }}" aria-controls="{{ category.id }}" data-toggle="tab">{{ category.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    {% for category in categories %}
+    <div class="tab-pane{% if categories|first == category %} active{% endif %}" id="{{ category.id }}">
+      {% for tutorial in category.tutorials if is_granted('CanReadTutorial', tutorial) %}
+          <h2><a href="{{ path('discutea_tuto_show_tutorial', {'slug': tutorial.slug}) }}">{{ tutorial.title }}</a></h2>
       {% else %}
-        <li><a href="{{ path('discutea_tuto_create_category') }}" class="btn btn-sm btn-success"> {{ 'discutea.tuto.category.btnnew'|trans }} </a></li>
+          <h2>Aucun contenu</h2>
       {% endfor %}
-    </ul>
+      <a href="{{ path('discutea_tuto_create_tutorial', {'id': category.id}) }}" class="btn btn-sm btn-success">{{ 'discutea.tuto.tuto.create'|trans }}</a>
+    </div>
+    {% endfor %}
   </div>
 {% endblock %}

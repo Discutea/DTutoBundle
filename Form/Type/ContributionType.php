@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ContributionType extends AbstractType
 {
@@ -19,6 +20,11 @@ class ContributionType extends AbstractType
         
         $builder
                 ->add('content', TextareaType::class)
+                ->add('status', ChoiceType::class, array(
+                     'choices'  => array(
+                         'Je terminerais plus tard' => 0,
+                         'j\'ai terminé le tutoriel' => 1
+                )))
         ;
     }
     

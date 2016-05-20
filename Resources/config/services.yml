@@ -1,15 +1,8 @@
 services:
-#    contribution.active.listener:
-#        class: Discutea\DTutoBundle\EventListener\ActiveContribution
-#        tags:
-#            - { name: doctrine.event_listener, event: postPersist }
-#            - { name: doctrine.event_listener, event: postRemove }
-
     discutea.security.tutorial_voter:
         class: Discutea\DTutoBundle\Security\TutorialVoter
         arguments: 
             - '@security.access.decision_manager'
-            - '@request_stack'
         public: false
         tags:
             - { name: security.voter }

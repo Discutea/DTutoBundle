@@ -34,7 +34,7 @@ class TutorialController extends BaseTutorialController
     {
         $em = $this->getEm();
         $categories = $em->getRepository('DTutoBundle:Category')->findAll();
-        
+
         return $this->render('DTutoBundle:index.html.twig', array(
             'categories' => $categories
         ));
