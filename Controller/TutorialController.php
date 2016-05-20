@@ -60,7 +60,6 @@ class TutorialController extends BaseTutorialController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $tutorial = new Tutorial();
         $tutorial->setCategory($category);
-        $tutorial->setLocale( $request->getLocale() );
         
         $form = $this->createForm(TutorialType::class, $tutorial);
 
@@ -100,7 +99,23 @@ class TutorialController extends BaseTutorialController
         ));     
         
     }
-    
+
+    /**
+     * 
+     * @Route("/show/{slug}/{id}", name="discutea_tuto_show_other_contrib")
+     * @ParamConverter("tutorial", options={"mapping": {"slug": "slug"}})
+     * @ParamConverter("contribution", options={"mapping": {"id": "id"}})
+     * 
+     */
+    public function otherContribAction(Tutorial $tutorial, Contribution $contribution)
+    {
+        return $this->render('DTutoBundle:tutorial.html.twig', array(
+            'tutorial' => $tutorial,
+            'contribution' => $contribution
+        ));     
+        
+    }
+
     /**
      * 
      * @Route("/add/contrib/{id}", name="discutea_tuto_addcontrib_tutorial")

@@ -4,7 +4,6 @@ namespace Discutea\DTutoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Discutea\DTutoBundle\Entity\Tutorial;
-use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity(repositoryClass="Discutea\DTutoBundle\Repository\CategoryRepository")
@@ -12,7 +11,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  */
 class Category 
 {
-use ORMBehaviors\Translatable\Translatable;
     /**
      * @var smallint
      *
@@ -21,6 +19,11 @@ use ORMBehaviors\Translatable\Translatable;
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $title;
 
     /**
      * @var integer
@@ -61,6 +64,23 @@ use ORMBehaviors\Translatable\Translatable;
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param  string
+     * @return null
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     /**

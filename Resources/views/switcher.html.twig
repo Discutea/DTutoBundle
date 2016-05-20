@@ -1,0 +1,19 @@
+<div class="pull-right">
+
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <strong>Others Contributions</strong>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="switcher">
+    {% for contrib in contribs %}
+        {% if contrib != current %}
+    <li><a href="{{ path('discutea_tuto_show_other_contrib', {'slug': contrib.tutorial.slug, 'id': contrib.id}) }}">{{ contrib.date|date("m/d/Y") }}</a></li>
+    {% else %}
+    <li class="success"><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">Current version</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+</div>
+<div class="clearfix"></div>

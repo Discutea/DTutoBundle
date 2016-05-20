@@ -1,25 +1,24 @@
 <?php
-
 namespace Discutea\DTutoBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Discutea\DTutoBundle\Entity\Tutorial;
 
 class DTutoExtension extends \Twig_Extension
 {
     
     private $em;
+    private $twig;
     
-    private $request;
-    
-    public function __construct (EntityManager $em, RequestStack $request) {
+    public function __construct (EntityManager $em, \Twig_Environment $twig) {
         $this->em = $em;
-        $this->request = $request->getCurrentRequest();
+        $this->twig = $twig;
     }
     
     public function getFunctions()
     {
         return array(
+            new \Twig_SimpleFunction('getTutoContribs', array($this, 'getTutoContribs', array('needs_environment' => true))),
             new \Twig_SimpleFunction('tutoNoValidate', array($this, 'tutoNoValidate')),
             new \Twig_SimpleFunction('tutoContribsNoValidate', array($this, 'tutoContribsNoValidate')),
             new \Twig_SimpleFunction('lastTutoContribs', array($this, 'lastTutoContribs')),
@@ -27,26 +26,32 @@ class DTutoExtension extends \Twig_Extension
         );
     }
 
-    public function tutoNoValidate($locale = null)
+    public function getTutoContribs(Tutorial $tutorial)
+    {
+        return $this->twig->render('DTutoBundle:switcher.html.twig', array(
+            'contribs' => $tutorial->getContributions(),
+            'current'  => $tutorial->getCurrent()
+        ));
+    }
+
+    public function tutoNoValidate()
     {
         $tutorials = $this->em->getRepository('DTutoBundle:Tutorial')->findAll();
 
         return $tutorials;
     }
 
-    public function tutoContribsNoValidate($locale = null)
-    {
-        if($locale === NULL) {
-             
-        }
-    }
-
-    public function lastTutoContribs($locale = null)
+    public function tutoContribsNoValidate()
     {
 
     }
 
-    public function lastTutorials($locale = null)
+    public function lastTutoContribs()
+    {
+
+    }
+
+    public function lastTutorials()
     {
 
     }

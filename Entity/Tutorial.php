@@ -47,11 +47,6 @@ class Tutorial
     private $slug;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    protected $locale;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Discutea\DTutoBundle\Entity\Category", inversedBy="tutorials")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      */
@@ -148,30 +143,6 @@ class Tutorial
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * Set locale
-     *
-     * @param string $locale
-     *
-     * @return this
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
-
-    /**
-     * Get locale
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
     }
 
     /**

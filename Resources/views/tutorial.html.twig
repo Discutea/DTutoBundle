@@ -3,10 +3,15 @@
 {% block title %}{{ tutorial.title }}{% endblock %}
 
 {% block body %}
-    
- 
   <div class="text-center col-xs-12">
+    {% if contribution is defined %}
+      <div class="alert alert-danger">
+        <strong>Danger!</strong> This contribution is not current version!
+      </div>
+    {% else %}
     {% set contribution = tutorial.current %}
+    {% endif %}
+    
     {% if contribution.status == 0 %}
       <div class="alert alert-info">
         <strong>Attention!</strong> Ce tutoriel est en cours de redaction!
@@ -20,7 +25,12 @@
         <strong>Attention!</strong> Ce tutoriel a été refusé!
       </div>
     {% endif %}
-
+   
+      {% if tutorial.contributions|length > 1 %}
+         {{ getTutoContribs(tutorial)|raw }}
+      {% endif %}
+ 
+ 
     <h1>{{ tutorial.title }}</h1>
     <p>
       {% if is_granted('CanEditContribution', contribution) %}
