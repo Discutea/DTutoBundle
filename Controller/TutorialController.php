@@ -1,7 +1,7 @@
 <?php
 namespace Discutea\DTutoBundle\Controller;
 
-use Discutea\DTutoBundle\Controller\Base\BaseTutorialController;
+use Discutea\DTutoBundle\Controller\Base\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -16,16 +16,13 @@ use Discutea\DTutoBundle\Form\Type\ContributionModeratorType;
 /**
  * TutorialController 
  * 
- * This class contains actions methods for forum.
- * This class extends BaseForumController.
- * 
  * @package  DTutoBundle
  * @author   David Verdier <contact@discutea.com>
- * @access   public
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
-class TutorialController extends BaseTutorialController
+class TutorialController extends BaseController
 {
-
     /**
      *
      * @Route("/", name="discutea_tuto_homepage")
@@ -150,7 +147,7 @@ class TutorialController extends BaseTutorialController
             $em->persist( $contrib );
             $em->flush();
             
-            $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.contrib.create'));
+            $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.contrib.add'));
             return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $tutorial->getSlug())));
         }
 
@@ -161,31 +158,23 @@ class TutorialController extends BaseTutorialController
 
     /**
      * 
-     * @Route("/setactive/{tid}/{cid}", name="discutea_tuto_setactive_contrib")
-     * @ParamConverter("tutorial", options={"mapping": {"tid": "id"}})
-     * @ParamConverter("contribution", options={"mapping": {"cid": "id"}})
+     * @Route("/toto/remove/{id}", name="discutea_tuto_tuto_remove")
+     * @ParamConverter("tutorial")
      * @Security("is_granted('ROLE_MODERATOR')")
      * 
+     * @param object $request Symfony\Component\HttpFoundation\Request
+     * @param objct $tutorial Discutea\DForumBundle\Entity\Contribution
+     * 
+     * @return object Symfony\Component\HttpFoundation\RedirectResponse redirecting moderator's dashboard
+     * @return objet Symfony\Component\HttpFoundation\Response
+     * 
      */
-    public function activeContribAction(Request $request, Tutorial $tutorial, Contribution $contribution)
+    public function removeAction(Request $request, Tutorial $tutorial)
     {
-        if ($tutorial->getCurrent() !== $contribution) {
-            
-            $em = $this->getEm();
-
-            foreach ($tutorial->getContributions() as $contrib) {
-                if ($contrib->getCurrent() === true) {
-                    $contrib->setCurrent(false);
-                    $em->persist($contrib);
-                }
-            }
-            
-            $contribution->setCurrent(true);
-            $em->persist($contribution);
-            $em->flush();
-        }
-        
-        $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.setactive.contrib'));
-        return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $tutorial->getSlug())));
+        $em = $this->getEm();
+        $em->remove($tutorial);
+        $em->flush();
+        $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.tuto.removed'));
+        return $this->redirect($this->generateUrl('discutea_tuto_homepage'));
     }
 }

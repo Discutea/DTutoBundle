@@ -35,7 +35,38 @@
                 <source>discutea.tuto.category.btnnew</source>
                 <target>+ Créer une catégorie +</target>
             </trans-unit>
-             <!-- Divers -->
+            <!-- Tutorial -->
+            <trans-unit id="t1">
+                <source>discutea.tuto.tutorial.create</source>
+                <target>Le tutorial a été créé.</target>
+            </trans-unit>
+            <trans-unit id="t2">
+                <source>discutea.tuto.tuto.removed</source>
+                <target>Le tutorial a été supprimé.</target>
+            </trans-unit>
+            <!-- Contribution -->
+            <trans-unit id="co1">
+                <source>discutea.tuto.contrib.add</source>
+                <target>La contribution a été ajouter avec succès au tutoriel.</target>
+            </trans-unit>
+            <trans-unit id="co2">
+                <source>discutea.tuto.setactive.contrib</source>
+                <target>La contribution à été définie comme contribution courante.</target>
+            </trans-unit>
+            <trans-unit id="co3">
+                <source>discutea.tuto.contrib.edit</source>
+                <target>La contribution a été mise à jour.</target>
+            </trans-unit>
+            <trans-unit id="co4">
+                <source>discutea.tuto.contrib.current.notremoved</source>
+                <target>Vous ne pouvez pas supprimer la contribution courante pour cela supprimer le tutoriel.</target>
+            </trans-unit>
+            <trans-unit id="co5">
+                <source>discutea.tuto.contrib.removed</source>
+                <target>La contribution a été supprimée.</target>
+            </trans-unit>
+            <!-- form's -->
+            <!-- Other's -->
             <trans-unit id="d1">
                 <source>discutea.tuto.edit</source>
                 <target>Editer</target>

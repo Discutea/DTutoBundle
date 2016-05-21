@@ -8,23 +8,21 @@ use Discutea\DTutoBundle\Entity\Category;
 use Discutea\DTutoBundle\Controller\Base\BaseController;
 
 /**
- * BaseForumController 
- * 
- * This class contains useful methods for the proper functioning of the category controller and not method actions.
- * This class extends BaseController.
+ * BaseCategoryController 
  * 
  * @package  DTutoBundle
  * @author   David Verdier <contact@discutea.com>
- * @access   protected
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class BaseCategoryController extends BaseController
 {
     /**
-     * Create form for remove forum
+     * Create form for remove category
      * 
      * @param object $category Discutea\DTutoBundle\Entity\Category
-     * 
      * @return object Symfony\Component\Form\Form
+     * 
      */
     protected function getFormRemoverCategory(Category $category) {
         $form = $this->createFormBuilder()
@@ -50,7 +48,7 @@ class BaseCategoryController extends BaseController
      * 
      * @return array categorie's list ordoned
      */
-    protected function getAllCategories(Category $cat) {
+    private function getAllCategories(Category $cat) {
         $categories = $this->getEm()->getRepository('DTutoBundle:Category')->findBy(array(), array('position' => 'asc', ));
 
         $cats = array();

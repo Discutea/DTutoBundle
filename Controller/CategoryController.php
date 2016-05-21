@@ -13,25 +13,21 @@ use Discutea\DTutoBundle\Form\Type\CategoryType;
 /**
  * CategoryController 
  * 
- * This class contains actions methods for forum.
- * This class extends BaseCategoryController.
- * 
- * @package  DForumBundle
+ * @package  DTutoBundle
  * @author   David Verdier <contact@discutea.com>
- * @access   public
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class CategoryController extends BaseCategoryController
 {
     /**
      * 
+     * Create a category.
+     * 
      * @Route("cat/create", name="discutea_tuto_create_category")
      * @Security("is_granted('ROLE_ADMIN')")
      * 
-     * 
      * @param object $request Symfony\Component\HttpFoundation\Request
-     * 
-     * @return object Symfony\Component\HttpFoundation\RedirectResponse moderator's dashboard
-     * @return objet Symfony\Component\HttpFoundation\Response
      * 
      */
     public function newCategoryAction(Request $request)
@@ -54,16 +50,14 @@ class CategoryController extends BaseCategoryController
 
     /**
      * 
+     * Edit a category.
+     * 
      * @Route("cat/edit/{id}", name="discutea_tuto_edit_category")
      * @ParamConverter("category")
      * @Security("is_granted('ROLE_ADMIN')")
      * 
-     * 
      * @param object $request Symfony\Component\HttpFoundation\Request
-     * @param objct $category Discutea\DTutoBundle\Entity\Category
-     * 
-     * @return object Symfony\Component\HttpFoundation\RedirectResponse moderator's dashboard
-     * @return objet Symfony\Component\HttpFoundation\Response
+     * @param object $category Discutea\DTutoBundle\Entity\Category
      * 
      */
     public function editCategoryAction(Request $request, Category $category)
@@ -85,15 +79,14 @@ class CategoryController extends BaseCategoryController
 
     /**
      * 
+     * Remove a category please see Discutea\DTutoBundle\Controller\Base\BaseCategoryController.
+     * 
      * @Route("cat/remove/{id}", name="discutea_tuto_remove_category")
      * @ParamConverter("category")
      * @Security("is_granted('ROLE_ADMIN')")
      * 
      * @param object $request Symfony\Component\HttpFoundation\Request
-     * @param objct $category Discutea\DTutoBundle\Entity\Category
-     * 
-     * @return object Symfony\Component\HttpFoundation\RedirectResponse moderator's dashboard
-     * @return objet Symfony\Component\HttpFoundation\Response
+     * @param object $category Discutea\DTutoBundle\Entity\Category
      * 
      */
     public function removeCategoryAction(Request $request, Category $category)
@@ -105,11 +98,13 @@ class CategoryController extends BaseCategoryController
             if ($form->getData()['purge'] === false) {
                 $tutorials = $category->getTutorials();
                 $newCat = $this->getEm()->getRepository('DTutoBundle:Category')->find($form->getData()['movedTo']) ;
-                
+
+
                 foreach ($tutorials as $tutorial) { $tutorial->setCategory($newCat); }
+
                 $em = $this->getEm();
                 $em->flush();
-                $em->clear();
+                $em->clear(); // Fix foreach clear entitie manager
                 $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.category.ismoved'));
             }
             

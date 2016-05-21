@@ -7,11 +7,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
- * @author David Verdier <contact@discutea.com>
+ * AdminController 
  * 
- * Class AdminController
- * 
- * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class AdminController extends BaseController
 {

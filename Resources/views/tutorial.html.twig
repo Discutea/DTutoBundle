@@ -29,6 +29,7 @@
       <a href="{{ path('discutea_tuto_addcontrib_tutorial', {'id': tutorial.id}) }}" class="btn btn-xs btn-primary">Contribuer</a>
       {% if is_granted('ROLE_MODERATOR') and contribution.current == false %}
           <a href="{{ path('discutea_tuto_setactive_contrib', {'tid': tutorial.id, 'cid': contribution.id}) }}" class="btn btn-xs btn-default">Definir comme version courante</a>
+          <a href="{{ path('discutea_tuto_contrib_remove', {'id': contribution.id}) }}" class="btn btn-xs btn-danger">Spprimer</a>
       {% endif %}
     </div>
     <div class="clearfix"></div>

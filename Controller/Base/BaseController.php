@@ -4,11 +4,11 @@ namespace Discutea\DTutoBundle\Controller\Base;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * BaseController is a sample class for use recurring variables in controllers.
+ * BaseController is a sample class use singleton for recurring variables in controllers.
  *
  * @package  DTutoBundle
  * @author   David Verdier <contact@discutea.com>
- * @access   protected
+ * https://www.linkedin.com/in/verdierdavid
  */
 class BaseController extends Controller
 {
