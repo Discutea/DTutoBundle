@@ -7,6 +7,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Discutea\DTutoBundle\Form\Type\Model\AbstractContributionType;
 
+/**
+ * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
+ */
 class ContributionType extends AbstractType
 {
     /**
@@ -18,9 +25,10 @@ class ContributionType extends AbstractType
         
         $builder
                 ->add('status', ChoiceType::class, array(
+                     'label'    => 'discutea.tuto.form.contrib.status',
                      'choices'  => array(
-                         'Je terminerais plus tard' => 0,
-                         'j\'ai terminé le tutoriel' => 2
+                         'discutea.tuto.form.contrib.status.0' => 0,
+                         'discutea.tuto.form.contrib.status.2' => 2
                 )))
         ;
     }

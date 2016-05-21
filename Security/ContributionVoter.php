@@ -11,7 +11,8 @@ use Discutea\DTutoBundle\Entity\Contribution;
  * 
  * @package  DTutoBundle
  * @author   David Verdier <contact@discutea.com>
- * @access   public
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class ContributionVoter extends Voter
 {

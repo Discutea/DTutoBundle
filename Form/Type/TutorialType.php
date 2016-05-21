@@ -5,7 +5,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+/**
+ * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
+ */
 class TutorialType extends AbstractType
 {
     /**
@@ -15,9 +23,9 @@ class TutorialType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('description')
-            ->add('tmpContrib', ContributionType::class)
+            ->add('title', TextType::class, array('label' => 'discutea.tuto.form.tuto.title'))
+            ->add('description', TextType::class, array('label' => 'discutea.tuto.form.tuto.description'))
+            ->add('tmpContrib', ContributionType::class, array('label' => false))
         ;
     }
     

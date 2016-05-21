@@ -16,7 +16,7 @@
         {% if contrib != tutorial.current %}
           <li><a href="{{ path('discutea_tuto_show_other_contrib', {'slug': contrib.tutorial.slug, 'id': contrib.id}) }}">{{ contrib.date|date("m/d/Y") }}</a></li>
         {% else %}
-          <li><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">Current version</a></li>
+          <li><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">{{ 'discutea.tuto.tuto.switcher.current'|trans }}</a></li>
         {% endif %}
       {% endfor %}
     </ul>

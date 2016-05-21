@@ -3,6 +3,13 @@ namespace Discutea\DTutoBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
+ */
 class DTutoExtension extends \Twig_Extension
 {
     

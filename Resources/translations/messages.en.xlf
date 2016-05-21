@@ -29,7 +29,7 @@
             </trans-unit>
             <trans-unit id="c7">
                 <source>discutea.tuto.category.form.title</source>
-                <target>Category management form</target>
+                <target>Categories management form</target>
             </trans-unit>
             <trans-unit id="c8">
                 <source>discutea.tuto.category.btnnew</source>
@@ -39,6 +39,14 @@
                 <source>discutea.tuto.category.list</source>
                 <target>Categories list.</target>
             </trans-unit>
+            <trans-unit id="c10">
+                <source>discutea.tuto.category.form.deletetitle</source>
+                <target>Category remove form</target>
+            </trans-unit>
+            <trans-unit id="c11">
+                <source>discutea.tuto.categories.null</source>
+                <target>You must create a category to start!</target>
+            </trans-unit>
             <!-- Tutorial -->
             <trans-unit id="t1">
                 <source>discutea.tuto.tutorial.create</source>
@@ -47,6 +55,34 @@
             <trans-unit id="t2">
                 <source>discutea.tuto.tuto.removed</source>
                 <target>The tutorial was successfully removed.</target>
+            </trans-unit>
+            <trans-unit id="t3">
+                <source>discutea.tuto.tuto.form.title</source>
+                <target>Tutorials Management form.</target>
+            </trans-unit>
+            <trans-unit id="t4">
+                <source>discutea.tuto.tuto.create</source>
+                <target>Add new tutorial</target>
+            </trans-unit>
+            <trans-unit id="t5">
+                <source>discutea.tuto.tuto.null</source>
+                <target>Sorry, No tutorials found in the category!</target>
+            </trans-unit>
+            <trans-unit id="t6">
+                <source>discutea.tuto.tuto.switcher.current</source>
+                <target>Current version</target>
+            </trans-unit>
+            <trans-unit id="t7">
+                <source>discutea.tuto.tuto.inprogress</source>
+                <target>The tutorial is being written</target>
+            </trans-unit>
+            <trans-unit id="t8">
+                <source>discutea.tuto.tuto.notapproved</source>
+                <target>The tutorial has not yet been approved!</target>
+            </trans-unit>
+            <trans-unit id="t9">
+                <source>discutea.tuto.tuto.rejected</source>
+                <target>The tutorial was rejected!</target>
             </trans-unit>
             <!-- Contribution -->
             <trans-unit id="co1">
@@ -69,15 +105,79 @@
                 <source>discutea.tuto.contrib.removed</source>
                 <target>The contribution was successfully removed.</target>
             </trans-unit>
+            <trans-unit id="co6">
+                <source>discutea.tuto.contrib.form.title</source>
+                <target>Contribution Management form.</target>
+            </trans-unit>
             <!-- form's -->
+            <trans-unit id="f1">
+                <source>discutea.tuto.form.contribution.content</source>
+                <target>Contribution contents.</target>
+            </trans-unit>
+            <trans-unit id="f2">
+                <source>discutea.tuto.form.category.title</source>
+                <target>Category title.</target>
+            </trans-unit>
+            <trans-unit id="f3">
+                <source>discutea.tuto.form.category.position</source>
+                <target>Position to display results.</target>
+            </trans-unit>
+            <trans-unit id="f4">
+                <source>discutea.tuto.form.category.image</source>
+                <target>Optional illustration image</target>
+            </trans-unit>
+            <trans-unit id="f5">
+                <source>discutea.tuto.form.contrib.status</source>
+                <target>Select a status.</target>
+            </trans-unit>
+            <trans-unit id="f6">
+                <source>discutea.tuto.form.contrib.message</source>
+                <target>Status message (visible by contributor and moderators).</target>
+            </trans-unit>
+            <trans-unit id="f7">
+                <source>discutea.tuto.form.tuto.title</source>
+                <target>Tutorial title.</target>
+            </trans-unit>
+            <trans-unit id="f8">
+                <source>discutea.tuto.form.tuto.description</source>
+                <target>Tutorial description.</target>
+            </trans-unit>
+            <trans-unit id="f9">
+                <source>discutea.tuto.form.contrib.status.0</source>
+                <target>I will end later.</target>
+            </trans-unit>
+            <trans-unit id="f10">
+                <source>discutea.tuto.form.contrib.status.1</source>
+                <target>Decline this contribution.</target>
+            </trans-unit>
+            <trans-unit id="f11">
+                <source>discutea.tuto.form.contrib.status.2</source>
+                <target>I've completed the tutorial.</target>
+            </trans-unit>
+            <trans-unit id="f12">
+                <source>discutea.tuto.form.contrib.status.3</source>
+                <target>Validate contribution..</target>
+            </trans-unit>
             <!-- Other's -->
             <trans-unit id="d1">
-                <source>discutea.tuto.edit</source>
-                <target>Edit</target>
+                <source>discutea.tuto.btn.submit</source>
+                <target>Submit</target>
             </trans-unit>
             <trans-unit id="d2">
-                <source>discutea.tuto.remove</source>
-                <target>Remove</target>
+                <source>discutea.tuto.btn.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="d3">
+                <source>discutea.tuto.btn.contribute</source>
+                <target>Contribute</target>
+            </trans-unit>
+            <trans-unit id="d4">
+                <source>discutea.tuto.btn.define.current</source>
+                <target>Set as current version</target>
+            </trans-unit>
+            <trans-unit id="d5">
+                <source>discutea.tuto.btn.delete</source>
+                <target>Delete</target>
             </trans-unit>
         </body>
     </file>

@@ -11,6 +11,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="Discutea\DTutoBundle\Repository\ContributionRepository")
  * @ORM\Table(name="dtuto_contribution")
  * 
+ * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class Contribution
 {

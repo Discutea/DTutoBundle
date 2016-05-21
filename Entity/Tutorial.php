@@ -11,6 +11,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="Discutea\DTutoBundle\Repository\TutorialRepository")
  * @ORM\Table(name="dtuto_tutorial")
+ * 
+ * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class Tutorial
 {

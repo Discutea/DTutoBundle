@@ -8,6 +8,11 @@ use Discutea\DTutoBundle\Entity\Tutorial;
 /**
  * @ORM\Entity(repositoryClass="Discutea\DTutoBundle\Repository\CategoryRepository")
  * @ORM\Table(name="dtuto_category")
+ * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class Category 
 {

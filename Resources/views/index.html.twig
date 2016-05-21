@@ -11,6 +11,8 @@
       <li{% if categories|first == category %} class="active"{% endif %}>
         <a href="#{{ category.id }}" aria-controls="{{ category.id }}" data-toggle="tab">{{ category.title }}</a>
       </li>
+    {% else %}
+        <h2>{{ 'discutea.tuto.categories.null'|trans }}</h2>
     {% endfor %}
   </ul>
 
@@ -21,9 +23,9 @@
       {% for tutorial in category.tutorials if is_granted('CanReadTutorial', tutorial) %}
           <h2><a href="{{ path('discutea_tuto_show_tutorial', {'slug': tutorial.slug}) }}">{{ tutorial.title }}</a></h2>
       {% else %}
-          <h2>Aucun contenu</h2>
+          <h2>{{ 'discutea.tuto.tuto.null'|trans }}</h2>
       {% endfor %}
-      <a href="{{ path('discutea_tuto_create_tutorial', {'id': category.id}) }}" class="btn btn-sm btn-success">{{ 'discutea.tuto.tuto.create'|trans }}</a>
+      <a href="{{ path('discutea_tuto_create_tutorial', {'id': category.id}) }}" class="btn btn-xs btn-success">{{ 'discutea.tuto.tuto.create'|trans }}</a>
     </div>
     {% endfor %}
   </div>

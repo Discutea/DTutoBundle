@@ -5,8 +5,16 @@ namespace Discutea\DTutoBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Discutea\DTutoBundle\Form\Type\Model\AbstractContributionType;
 
+/**
+ * 
+ * @package  DTutoBundle
+ * @author   David Verdier <contact@discutea.com>
+ * https://www.linkedin.com/in/verdierdavid
+ *
+ */
 class ContributionModeratorType extends AbstractType
 {
     /**
@@ -18,13 +26,14 @@ class ContributionModeratorType extends AbstractType
         
         $builder
                 ->add('status', ChoiceType::class, array(
-                     'choices'  => array(
-                         'Je terminerais plus tard' => 0,
-                         'j\'ai terminé le tutoriel' => 2,
-                         'Reffuser le tutoriel' => 1,
-                         'Valider le tutoriel' => 4,
+                    'label'    => 'discutea.tuto.form.contrib.status',
+                     'choices' => array(
+                         'discutea.tuto.form.contrib.status.0' => 0,
+                         'discutea.tuto.form.contrib.status.2' => 2,
+                         'discutea.tuto.form.contrib.status.1' => 1,
+                         'discutea.tuto.form.contrib.status.4' => 3,
                 )))
-                ->add('message')
+                ->add('message', TextType::class, array('label' => 'discutea.tuto.form.contrib.message'))
         ;
     }
     

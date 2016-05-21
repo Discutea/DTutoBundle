@@ -11,7 +11,8 @@ use Discutea\DTutoBundle\Entity\Tutorial;
  * 
  * @package  DTutoBundle
  * @author   David Verdier <contact@discutea.com>
- * @access   public
+ * https://www.linkedin.com/in/verdierdavid
+ *
  */
 class TutorialVoter extends Voter
 {

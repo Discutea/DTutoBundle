@@ -1,12 +1,11 @@
 {% extends "DTutoBundle::layout.html.twig" %}
 
-{% block title %}{{ 'discutea.tuto.category.form.title'|trans }}{% endblock %}
+{% block title %}{{ 'discutea.tuto.tuto.form.title'|trans }}{% endblock %}
 
 
 {% block body %}
-    {% if form is defined %}
   <div class="col-md-12">
-    <h1>{{ 'discutea.tuto.category.form.title'|trans }}</h1>
+    <h1>{{ 'discutea.tuto.tuto.form.title'|trans }}</h1>
 
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
     
@@ -29,12 +28,8 @@
     {{ form_label(form.tmpContrib.status) }}
     {{ form_widget(form.tmpContrib.status, {'attr': {'class': 'form-control'}}) }}
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">{{ 'discutea.tuto.btn.submit'|trans }}</button>
     {{ form_widget(form) }}
     {{ form_end(form) }}
   </div>
-    {% else %}
-        {{ dump(tutorial) }}
-        
-    {% endif %}
 {% endblock %}
