@@ -28,6 +28,19 @@
     {{ form_label(form.tmpContrib.status) }}
     {{ form_widget(form.tmpContrib.status, {'attr': {'class': 'form-control'}}) }}
     </div>
+
+    <div class="form-group">
+    {{ form_label(form.category) }}
+    {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {% if (form.tmpContrib.message is defined) %}
+        <div class="form-group">
+            {{ form_label(form.tmpContrib.message) }}
+            {{ form_widget(form.tmpContrib.message, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    {% endif %}
+    
     <button type="submit" class="btn btn-primary">{{ 'discutea.tuto.btn.submit'|trans }}</button>
     {{ form_widget(form) }}
     {{ form_end(form) }}

@@ -33,7 +33,15 @@ class ContributionController extends BaseController
      */
     public function editAction(Request $request, Contribution $contribution)
     {
-        $form = $this->createForm(ContributionType::class, $contribution);
+        if (true === $this->getAuthorization()->isGranted('ROLE_MODERATOR')) {
+            $tutorial = $contribution->getTutorial();
+            $tutorial->setTmpContrib($contribution);
+            $form = $this->createForm(TutorialType::class, $tutorial);
+            $view = 'DTutoBundle:Form/tutorial.html.twig';
+        } else {
+            $form = $this->createForm(ContributionType::class, $contribution);
+            $view = 'DTutoBundle:Form/contribution.html.twig';
+        }
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getEm();
@@ -44,7 +52,7 @@ class ContributionController extends BaseController
             return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $contribution->getTutorial()->getSlug())));
         }
 
-        return $this->render('DTutoBundle:Form/contribution.html.twig', array(
+        return $this->render($view, array(
             'form' => $form->createView()
         ));
     }

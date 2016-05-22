@@ -6,6 +6,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 /**
  * 
  * @package  DTutoBundle
@@ -25,6 +27,11 @@ class TutorialType extends AbstractType
             ->add('title', TextType::class, array('label' => 'discutea.tuto.form.tuto.title'))
             ->add('description', TextType::class, array('label' => 'discutea.tuto.form.tuto.description'))
             ->add('tmpContrib', ContributionType::class, array('label' => false))
+            ->add('category', EntityType::class, array(
+                'label' => 'discutea.tuto.form.choice.category',
+                'class' => 'DTutoBundle:Category',
+                'choice_label' => 'title',
+            ))
         ;
     }
 

@@ -158,6 +158,10 @@
                 <source>discutea.tuto.form.contrib.status.3</source>
                 <target>Validate contribution..</target>
             </trans-unit>
+            <trans-unit id="f13">
+                <source>discutea.tuto.form.choice.category</source>
+                <target>Select a category.</target>
+            </trans-unit>
             <!-- Other's -->
             <trans-unit id="d1">
                 <source>discutea.tuto.btn.submit</source>
