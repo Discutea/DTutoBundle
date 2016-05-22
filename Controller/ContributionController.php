@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Discutea\DTutoBundle\Entity\Contribution;
 use Discutea\DTutoBundle\Entity\Tutorial;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
-use Discutea\DTutoBundle\Form\Type\ContributionModeratorType;
+use Discutea\DTutoBundle\Form\Type\TutorialType;
 
 /**
  * ContributionController 
@@ -33,11 +33,7 @@ class ContributionController extends BaseController
      */
     public function editAction(Request $request, Contribution $contribution)
     {
-        if (true === $this->getAuthorization()->isGranted('ROLE_MODERATOR')) {
-            $form = $this->createForm(ContributionModeratorType::class, $contribution);
-        } else {
-            $form = $this->createForm(ContributionType::class, $contribution);
-        }
+        $form = $this->createForm(ContributionType::class, $contribution);
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getEm();

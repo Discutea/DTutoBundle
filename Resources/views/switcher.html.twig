@@ -12,7 +12,7 @@
     {% endif %}
     
     <ul class="dropdown-menu" aria-labelledby="switcher">
-      {% for contrib in contribs if contribution != contrib and is_granted('CanReadTutorial', tutorial) %}
+      {% for contrib in contribs if contribution != contrib %}
         {% if contrib != tutorial.current %}
           <li><a href="{{ path('discutea_tuto_show_other_contrib', {'slug': contrib.tutorial.slug, 'id': contrib.id}) }}">{{ contrib.date|date("m/d/Y") }}</a></li>
         {% else %}

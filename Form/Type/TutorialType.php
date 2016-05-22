@@ -6,7 +6,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
 /**
  * 
  * @package  DTutoBundle
@@ -28,7 +27,7 @@ class TutorialType extends AbstractType
             ->add('tmpContrib', ContributionType::class, array('label' => false))
         ;
     }
-    
+
     public function getName()
     {
         return 'DTutoBundle.tutorials';

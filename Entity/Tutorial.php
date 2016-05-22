@@ -196,7 +196,7 @@ class Tutorial
      */
     public function removeContribution(Contribution $contribution)
     {
-        $this->Contributions->removeElement($contribution);
+        $this->contributions->removeElement($contribution);
     }
 
     /**
@@ -216,12 +216,6 @@ class Tutorial
      */
     public function getTmpContrib()
     {
-        /*
-    }
-        if (NULL === $this->tmpContrib) {
-            $this->tmpContrib = $this->setTmpContrib();
-        }
-        */
         return $this->tmpContrib;
     }
 

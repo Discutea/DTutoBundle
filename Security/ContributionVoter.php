@@ -18,7 +18,7 @@ class ContributionVoter extends Voter
 {
     
     const CANEDITCONTRIBUTION = 'CanEditContribution';
-    
+    const CANREADCONTRIB      = 'CanReadContrib';
     /**
      *
      * @var object Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
@@ -39,7 +39,7 @@ class ContributionVoter extends Voter
     protected function supports($attribute, $contribution)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::CANEDITCONTRIBUTION))) {
+        if (!in_array($attribute, array(self::CANEDITCONTRIBUTION, self::CANREADCONTRIB))) {
             return false;
         }
 
@@ -57,6 +57,8 @@ class ContributionVoter extends Voter
         switch($attribute) {
             case self::CANEDITCONTRIBUTION:
                 return $this->canEditContribution($contribution, $token);
+            case self::CANREADCONTRIB:
+                return $this->canReadContrib($contribution, $token);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -93,4 +95,29 @@ class ContributionVoter extends Voter
         return false;
     }
 
+    public function canReadContrib(Contribution $contribution, TokenInterface $token)
+    {
+        /* rappel status contributions
+         * 
+         * 0 = InProgress ( contribution being written )
+         * 1 = Rejected   ( Contribution rejected not validated 'Requires reason $rejected' )
+         * 2 = Submitted  ( Contribution submitted and not verified by a moderator )
+         * 3 = Validated  ( Contribution submitted and approved by a moderator visible by all )
+         * 
+         */
+        
+        if ($contribution->getStatus() === 3) {
+            return true;
+        }
+
+        if ($this->decisionManager->decide($token, array('ROLE_MODERATOR'))) {
+            return true;
+        }
+
+        if ($contribution->getContributor() === $token->getUser()) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -11,7 +11,6 @@ use Discutea\DTutoBundle\Entity\Category;
 use Discutea\DTutoBundle\Entity\Contribution;
 use Discutea\DTutoBundle\Form\Type\TutorialType;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
-use Discutea\DTutoBundle\Form\Type\ContributionModeratorType;
 
 /**
  * TutorialController 
@@ -92,8 +91,9 @@ class TutorialController extends BaseController
      */
     public function tutorialAction(Tutorial $tutorial)
     {
+
         return $this->render('DTutoBundle:tutorial.html.twig', array(
-            'tutorial' => $tutorial,
+            'tutorial' => $this->sortsContribs($tutorial),
             'contribution' => $tutorial->getCurrent(),
             'current' => true
         ));
@@ -105,11 +105,13 @@ class TutorialController extends BaseController
      * @ParamConverter("tutorial", options={"mapping": {"slug": "slug"}})
      * @ParamConverter("contribution", options={"mapping": {"id": "id"}})
      * 
+     * @Security("is_granted('CanReadTutorial', tutorial) and is_granted('CanReadContrib', contribution)")
+     * 
      */
     public function otherContribAction(Tutorial $tutorial, Contribution $contribution)
     {
         return $this->render('DTutoBundle:tutorial.html.twig', array(
-            'tutorial' => $tutorial,
+            'tutorial' => $this->sortsContribs($tutorial),
             'contribution' => $contribution,
             'current' => false
         ));
@@ -133,13 +135,8 @@ class TutorialController extends BaseController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $tutorial->setTmpContrib( new Contribution( $user ) );
         $contrib = $tutorial->getTmpContrib();
-
-        if (true === $this->getAuthorization()->isGranted('ROLE_MODERATOR')) {
-            $form = $this->createForm(ContributionModeratorType::class, $contrib);
-        } else {
-            $form = $this->createForm(ContributionType::class, $contrib);
-        }
-
+        $form = $this->createForm(ContributionType::class, $contrib);
+        
         if ($form->handleRequest($request)->isValid()) {
             
  
@@ -177,4 +174,23 @@ class TutorialController extends BaseController
         $request->getSession()->getFlashBag()->add('success', $this->getTranslator()->trans('discutea.tuto.tuto.removed'));
         return $this->redirect($this->generateUrl('discutea_tuto_homepage'));
     }
+
+    /**
+     * Remove contributions not authorized
+     * 
+     * @param Tutorial $tutorial
+     * @return Tutorial
+     */
+    private function sortsContribs(Tutorial $tutorial)
+    {
+        $authorizer = $this->getAuthorization();
+        
+        foreach ($tutorial->getContributions() as $contrib ) {
+            if ( false === $authorizer->isGranted('CanReadContrib', $contrib) ) {
+                $tutorial->removeContribution($contrib);
+            }
+        }
+        
+        return $tutorial;
+    }    
 }

@@ -22,3 +22,9 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+
+    discutea.form.type.contribution:
+        class: Discutea\DTutoBundle\Form\Type\ContributionType
+        arguments: ["@security.authorization_checker"]
+        tags:
+            - { name: form.type }
