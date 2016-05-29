@@ -183,6 +183,14 @@
                 <source>discutea.tuto.btn.delete</source>
                 <target>Delete</target>
             </trans-unit>
+            <trans-unit id="d6">
+                <source>discutea.tuto.remove</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="d7">
+                <source>discutea.tuto.edit</source>
+                <target>Edit</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

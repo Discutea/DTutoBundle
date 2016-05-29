@@ -84,7 +84,7 @@ class TutorialVoter extends Voter
          * 
          */
         
-        if ($contrib->getStatus() == 3) {
+        if ($contrib->getStatus() === 3) {
             return true;
         }
 
