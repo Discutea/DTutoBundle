@@ -37,10 +37,10 @@ class ContributionController extends BaseController
             $tutorial = $contribution->getTutorial();
             $tutorial->setTmpContrib($contribution);
             $form = $this->createForm(TutorialType::class, $tutorial);
-            $view = 'DTutoBundle:Form/tutorial.html.twig';
+            $view = 'DTutoBundle::Form/tutorial.html.twig';
         } else {
             $form = $this->createForm(ContributionType::class, $contribution);
-            $view = 'DTutoBundle:Form/contribution.html.twig';
+            $view = 'DTutoBundle::Form/contribution.html.twig';
         }
 
         if ($form->handleRequest($request)->isValid()) {

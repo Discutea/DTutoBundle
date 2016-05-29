@@ -34,7 +34,7 @@ class TutorialController extends BaseController
         $em = $this->getEm();
         $categories = $em->getRepository('DTutoBundle:Category')->findAll();
 
-        return $this->render('DTutoBundle:index.html.twig', array(
+        return $this->render('DTutoBundle::index.html.twig', array(
             'categories' => $categories
         ));
     }
@@ -76,7 +76,7 @@ class TutorialController extends BaseController
             return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $tutorial->getSlug())));
         }
 
-        return $this->render('DTutoBundle:Form/tutorial.html.twig', array(
+        return $this->render('DTutoBundle::Form/tutorial.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -92,7 +92,7 @@ class TutorialController extends BaseController
     public function tutorialAction(Tutorial $tutorial)
     {
 
-        return $this->render('DTutoBundle:tutorial.html.twig', array(
+        return $this->render('DTutoBundle::tutorial.html.twig', array(
             'tutorial' => $this->sortsContribs($tutorial),
             'contribution' => $tutorial->getCurrent(),
             'current' => true
@@ -110,7 +110,7 @@ class TutorialController extends BaseController
      */
     public function otherContribAction(Tutorial $tutorial, Contribution $contribution)
     {
-        return $this->render('DTutoBundle:tutorial.html.twig', array(
+        return $this->render('DTutoBundle::tutorial.html.twig', array(
             'tutorial' => $this->sortsContribs($tutorial),
             'contribution' => $contribution,
             'current' => false
@@ -148,7 +148,7 @@ class TutorialController extends BaseController
             return $this->redirect($this->generateUrl('discutea_tuto_show_tutorial', array('slug' => $tutorial->getSlug())));
         }
 
-        return $this->render('DTutoBundle:Form/contribution.html.twig', array(
+        return $this->render('DTutoBundle::Form/contribution.html.twig', array(
             'form' => $form->createView()
         ));
     }

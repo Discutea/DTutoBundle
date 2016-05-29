@@ -62,7 +62,7 @@ class Contribution
      * 2 = Submitted  ( Contribution submitted and not verified by a moderator )
      * 3 = Validated  ( Contribution submitted and approved by a moderator visible by all )
      * 
-     * @ORM\Column(type="smallint", nullable=false, options={"default" = 2})
+     * @ORM\Column(type="smallint", nullable=false)
      * 
      */
     protected $status = 0;

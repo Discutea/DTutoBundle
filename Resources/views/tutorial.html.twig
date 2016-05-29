@@ -15,7 +15,7 @@
     {% endif %}
    
     <div class="pull-right">
-    {% if contribs|length > 1 %}{% include 'DTutoBundle:switcher.html.twig' %}{% endif %}
+    {% if contribs|length > 1 %}{% include 'DTutoBundle::switcher.html.twig' %}{% endif %}
       
       {% if is_granted('CanEditContribution', contribution) %}
           <a href="{{ path('discutea_tuto_contrib_edit', {'id': contribution.id}) }}" class="btn btn-xs btn-warning">{{ 'discutea.tuto.btn.edit'|trans }}</a>

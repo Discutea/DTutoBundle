@@ -35,7 +35,7 @@ class AdminController extends BaseController
             $categories = NULL;
         }
 
-        return $this->render('DTutoBundle:Admin/index.html.twig', array(
+        return $this->render('DTutoBundle::Admin/index.html.twig', array(
             'tutorials' => $em->getRepository('DTutoBundle:Tutorial')->findAll(),
             'categories' => $categories
         ));

@@ -43,7 +43,7 @@ class CategoryController extends BaseCategoryController
             return $this->redirect($this->generateUrl('discutea_tuto_admin_dashboard'));
         }
 
-        return $this->render('DTutoBundle:Form/category.html.twig', array(
+        return $this->render('DTutoBundle::Form/category.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -72,7 +72,7 @@ class CategoryController extends BaseCategoryController
             return $this->redirect($this->generateUrl('discutea_tuto_admin_dashboard'));
         }
 
-        return $this->render('DTutoBundle:Form/category.html.twig', array(
+        return $this->render('DTutoBundle::Form/category.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -116,7 +116,7 @@ class CategoryController extends BaseCategoryController
             return $this->redirect($this->generateUrl('discutea_tuto_admin_dashboard'));
         }
  
-        return $this->render('DTutoBundle:Form/remove_category.html.twig', array(
+        return $this->render('DTutoBundle::Form/remove_category.html.twig', array(
             'form' => $form->createView()
         ));
     }
