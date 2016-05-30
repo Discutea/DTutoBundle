@@ -43,22 +43,11 @@ class Category
     protected $tutorials;
 
     /**
-     * @ORM\Column(name="image_url", type="string", length=255, nullable=true)
-     */
-    private $image;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->tutorials = new ArrayCollection();
-        $this->translations = new ArrayCollection();
-    }
-
-    public function __call($method, $arguments)
-    {
-        return \Symfony\Component\PropertyAccess\PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
     }
 
     /**
@@ -145,28 +134,5 @@ class Category
     {
         return $this->tutorials;
     }
-
-    /**
-     * Set image url
-     *
-     * @param string $image
-     *
-     * @return this
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
 
 }
