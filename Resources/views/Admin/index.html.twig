@@ -3,25 +3,38 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
-{{ dump( tutoNoValidate() ) }}
+    <h1>Tutorials list</h1>
   <div class="col-xs-12">
-    <div class="widget-box">
-      <div class="widget-title">
-        <span class="icon"><i class="fa fa-file"></i></span><h5>{{ 'discutea.tuto.post.recent'|trans }}</h5>
-        <span title="{{ tutorials|length }} Posts" class="label label-success tip-left">{{ tutorials|length }}</span>
-      </div>
-      <div class="widget-content nopadding">
-        <ul class="recent-posts">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#dtprogress" aria-controls="dtprogress" role="tab" data-toggle="tab">In progress</a></li>
+    <li role="presentation"><a href="#dtrejected" aria-controls="dtrejected" role="tab" data-toggle="tab">Rejected</a></li>
+    <li role="presentation"><a href="#dtsubmitted" aria-controls="dtsubmitted" role="tab" data-toggle="tab">Submitted</a></li>
+    <li role="presentation"><a href="#dtvalidate" aria-controls="dtvalidate" role="tab" data-toggle="tab">Validted</a></li>
+  </ul>
 
-          {% for tutorial in tutorials|slice(0, 5) %}
-          <li>
-             {{ dump(tutorial) }}
-          </li>
-          {% endfor %}
-
-        </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="dtprogress">
+        {% for contrib in dtContribsInProgress(5) %}
+          <h2><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">{{ contrib.contributor }}</a></h2>
+        {% endfor %}
       </div>
-    </div>
+      <div role="tabpanel" class="tab-pane" id="dtrejected">
+        {% for contrib in dtContribsRejected(5) %}
+          <h2><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">{{ contrib.contributor }}</a></h2>
+        {% endfor %}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="dtsubmitted">
+        {% for contrib in dtContribsSubmitted(5) %}
+          <h2><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">{{ contrib.contributor }}</a></h2>
+        {% endfor %}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="dtvalidate">
+        {% for contrib in dtContribsValidate(5) %}
+          <h2><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">{{ contrib.contributor }}</a></h2>
+        {% endfor %}
+      </div>
+  </div>
   </div>
 
 <hr />
