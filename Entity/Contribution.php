@@ -67,11 +67,6 @@ class Contribution
      */
     protected $status = 0;
 
-    /**
-     * @ORM\Column(name="motif_rejected", type="text", nullable=true)
-     */
-    protected $message;
-
     public function __construct(UserInterface $user = null) {
         
         if ($user !== NULL) {
@@ -278,27 +273,5 @@ class Contribution
         $this->status = $status;
 
         return $this;
-    }
-
-    /**
-     * Set message
-     * 
-     * @var string $message
-     */
-    public function setMessage($message)
-    { 
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get Message
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
     }
 }

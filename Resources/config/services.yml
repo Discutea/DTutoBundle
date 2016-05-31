@@ -28,3 +28,9 @@ services:
         arguments: ["@security.authorization_checker"]
         tags:
             - { name: form.type }
+
+    discutea.form.type.tutorial:
+        class: Discutea\DTutoBundle\Form\Type\TutorialType
+        arguments: ["@security.authorization_checker"]
+        tags:
+            - { name: form.type }

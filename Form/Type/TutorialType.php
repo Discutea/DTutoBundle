@@ -4,8 +4,10 @@ namespace Discutea\DTutoBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Discutea\DTutoBundle\Form\Type\ContributionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -17,6 +19,20 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  */
 class TutorialType extends AbstractType
 {
+    /**
+     *
+     * @var type Symfony\Component\Security\Core\Authorization\AuthorizationChecker
+     */
+    protected $authorizer;
+
+    /**
+     * 
+     * @param AuthorizationChecker $authorizer
+     */    
+    public function __construct(AuthorizationChecker $authorizer) {
+        $this->authorizer = $authorizer;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -33,6 +49,13 @@ class TutorialType extends AbstractType
                 'choice_label' => 'title',
             ))
         ;
+
+        if (true === $this->authorizer->isGranted('ROLE_MODERATOR') ) {
+            $builder->add('image', UrlType::class, array(
+                'label' => 'discutea.tuto.form.category.image',
+                'required' => false
+            ));
+        } 
     }
 
     public function getName()

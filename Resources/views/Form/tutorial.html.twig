@@ -18,6 +18,13 @@
     {{ form_label(form.description) }}
     {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
     </div>
+
+    {% if (form.image is defined) %}
+        <div class="form-group">
+            {{ form_label(form.image) }}
+            {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    {% endif %}
     
     <div class="form-group">
     {{ form_label(form.tmpContrib.content) }}

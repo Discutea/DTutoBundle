@@ -21,7 +21,7 @@ class TutorialControllerTest extends TestBase
         
         $this->addFixtruresCategory();
         $this->addFixtruresTutorial();
-
+        
         $this->tryUrlFull($url);
 
         $this->setAllStatusContribs(1);
