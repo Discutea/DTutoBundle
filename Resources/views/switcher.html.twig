@@ -6,7 +6,7 @@
       </button>
     {% else %}
       <button class="btn btn-xs btn-danger dropdown-toggle" type="button" id="switcher" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        <strong>{{ contribution.date|date("m/d/Y") }}</strong>
+        <strong>{% if contribution.version is not null %}V{{ contribution.version }}{% else %}{{ contribution.date|date("m/d/Y") }}{% endif %}</strong>
         <span class="caret"></span>
       </button>
     {% endif %}
@@ -14,7 +14,13 @@
     <ul class="dropdown-menu" aria-labelledby="switcher">
       {% for contrib in contribs if contribution != contrib %}
         {% if contrib != tutorial.current %}
-          <li><a href="{{ path('discutea_tuto_show_other_contrib', {'slug': contrib.tutorial.slug, 'id': contrib.id}) }}">{{ contrib.date|date("m/d/Y") }}</a></li>
+          <li><a href="{{ path('discutea_tuto_show_other_contrib', {'slug': contrib.tutorial.slug, 'id': contrib.id}) }}">
+            {% if contrib.version is not null %}
+              V{{ contrib.version }}
+            {% else %}
+              {{ contrib.date|date("m/d/Y") }}
+            {% endif %}
+            </a></li>
         {% else %}
           <li><a href="{{ path('discutea_tuto_show_tutorial', {'slug': contrib.tutorial.slug}) }}">{{ 'discutea.tuto.tuto.switcher.current'|trans }}</a></li>
         {% endif %}

@@ -16,10 +16,17 @@
     </div>
     
     <div class="form-group">
-    {{ form_label(form.status) }}
-    {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+      <div class="col-xs-6">
+        {{ form_label(form.status) }}
+        {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-xs-6">
+        {{ form_label(form.version) }}
+        {{ form_widget(form.version, {'attr': {'class': 'form-control'}}) }}
+      </div>
     </div>
 
+    
     {% if form.message is defined %}
     <div class="form-group">
     {{ form_label(form.message) }}

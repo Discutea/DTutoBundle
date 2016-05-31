@@ -30,10 +30,16 @@
     {{ form_label(form.tmpContrib.content) }}
     {{ form_widget(form.tmpContrib.content, {'attr': {'class': 'form-control', 'rows': '15'}}) }}
     </div>
-    
+
     <div class="form-group">
-    {{ form_label(form.tmpContrib.status) }}
-    {{ form_widget(form.tmpContrib.status, {'attr': {'class': 'form-control'}}) }}
+      <div class="col-xs-6">
+        {{ form_label(form.tmpContrib.status) }}
+        {{ form_widget(form.tmpContrib.status, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-xs-6">
+        {{ form_label(form.tmpContrib.version) }}
+        {{ form_widget(form.tmpContrib.version, {'attr': {'class': 'form-control'}}) }}
+      </div>
     </div>
 
     <div class="form-group">

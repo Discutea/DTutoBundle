@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -37,20 +38,25 @@ class ContributionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = array(
+                'discutea.tuto.form.contrib.status.0' => 0,
+                'discutea.tuto.form.contrib.status.2' => 2
+        );
         
-        $builder->add('content', TextareaType::class, array("label"=>"discutea.tuto.form.contribution.content"));
-
-            $choices = array(
-                    'discutea.tuto.form.contrib.status.0' => 0,
-                    'discutea.tuto.form.contrib.status.2' => 2
-            );
-        
-            if (true === $this->authorizer->isGranted('ROLE_MODERATOR') ) {
-                $choices['discutea.tuto.form.contrib.status.1'] = 1;
-                $choices['discutea.tuto.form.contrib.status.3'] = 3;
-            } 
-
-            $builder->add('status', ChoiceType::class, array(
+        if (true === $this->authorizer->isGranted('ROLE_MODERATOR') ) {
+            $choices['discutea.tuto.form.contrib.status.1'] = 1;
+            $choices['discutea.tuto.form.contrib.status.3'] = 3;
+        }
+            
+        $builder
+                ->add('content', TextareaType::class, array(
+                    'label'=>'discutea.tuto.form.contribution.content'
+                ))
+                ->add('version', TextType::class, array(
+                    'label'    => 'discutea.tuto.form.contrib.version',
+                    'required' => false
+                ))
+                ->add('status', ChoiceType::class, array(
                 'label'    => 'discutea.tuto.form.contrib.status',
                 'choices'  => $choices
             ));

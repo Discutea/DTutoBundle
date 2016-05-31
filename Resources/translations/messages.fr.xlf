@@ -162,6 +162,10 @@
                 <source>discutea.tuto.form.choice.category</source>
                 <target>Selectionner la catégorie.</target>
             </trans-unit>
+            <trans-unit id="f14">
+                <source>discutea.tuto.form.contrib.version</source>
+                <target>Indiquer un numéro de version ex: 1.0.0</target>
+            </trans-unit>
             <!-- Other's -->
             <trans-unit id="d1">
                 <source>discutea.tuto.btn.submit</source>

@@ -34,6 +34,11 @@ class Contribution
     protected $content;
 
     /**
+     * @ORM\Column(length=6, unique=true, nullable=true)
+     */
+    private $version;
+
+    /**
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     protected $date;
@@ -82,7 +87,7 @@ class Contribution
      *
      * @param int $id
      *
-     * @return Post
+     * @return this
      */
     public function setId($id)
     {
@@ -105,7 +110,7 @@ class Contribution
      *
      * @param string $content
      *
-     * @return Post
+     * @return this
      */
     public function setContent($content)
     {
@@ -125,11 +130,36 @@ class Contribution
     }
 
     /**
+     * Set version
+     *
+     * @param string $version
+     * examples: 1.0.0 or 1.0
+     *
+     * @return this
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
      * Set date
      *
      * @param \DateTime $date
      *
-     * @return Post
+     * @return this
      */
     public function setDate($date)
     {
@@ -153,7 +183,7 @@ class Contribution
      *
      * @param \DateTime $updated
      *
-     * @return Post
+     * @return this
      */
     public function setUpdated($updated)
     {
@@ -177,7 +207,7 @@ class Contribution
      *
      * @param \Discutea\DTutoBundle\Entity\Tutorial $tutorial
      *
-     * @return Contribution
+     * @return this
      */
     public function setTutorial(Tutorial $tutorial)
     {
@@ -201,7 +231,7 @@ class Contribution
      *
      * @param \Discutea\UsersBundle\Entity\Users $contributor
      *
-     * @return Contribution
+     * @return this
      */
     public function setContributor(UserInterface $contributor)
     {
@@ -247,7 +277,7 @@ class Contribution
     /**
      * Get Status
      *
-     * @return integer
+     * @return this
      */
     public function getStatus()
     {
