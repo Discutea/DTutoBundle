@@ -2,6 +2,7 @@
 namespace Discutea\DTutoBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\User\UserInterface as User;
 
 /**
  * 
@@ -22,36 +23,69 @@ class DTutoExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('getTutoContribs', array($this, 'getTutoContribs', array('needs_environment' => true))),
-            new \Twig_SimpleFunction('tutoNoValidate', array($this, 'tutoNoValidate')),
-            new \Twig_SimpleFunction('tutoContribsNoValidate', array($this, 'tutoContribsNoValidate')),
-            new \Twig_SimpleFunction('lastTutoContribs', array($this, 'lastTutoContribs')),
-            new \Twig_SimpleFunction('lastTutorials', array($this, 'lastTutorials')),
+            new \Twig_SimpleFunction('dtContribsByUser', array($this, 'dtContribsByUser')),
+            new \Twig_SimpleFunction('dtContribsInProgress', array($this, 'dtContribsInProgress')),
+            new \Twig_SimpleFunction('dtContribsRejected', array($this, 'dtContribsRejected')),
+            new \Twig_SimpleFunction('dtContribsSubmitted', array($this, 'dtContribsSubmitted')),
+            new \Twig_SimpleFunction('dtContribsValidate', array($this, 'dtContribsValidate')),
         );
     }
 
-    public function tutoNoValidate()
+    public function dtContribsByUser(User $user, $limit = null)
     {
-        $tutorials = $this->em->getRepository('DTutoBundle:Tutorial')->findAll();
+        $contribs = $this->em->getRepository('DTutoBundle:Contribution')->findBy(
+            array('contributor' => $user),
+            array('date' => 'DESC'),
+            $limit,
+            null);
 
-        return $tutorials;
+        return $contribs;
     }
 
-    public function tutoContribsNoValidate()
+    public function dtContribsInProgress($limit = null)
     {
+        $contribs = $this->em->getRepository('DTutoBundle:Contribution')->findBy(
+            array('status' => 0),
+            array('date' => 'DESC'),
+            $limit,
+            null);
 
+        return $contribs;
     }
 
-    public function lastTutoContribs()
+    public function dtContribsRejected($limit = null)
     {
+        $contribs = $this->em->getRepository('DTutoBundle:Contribution')->findBy(
+            array('status' => 1),
+            array('date' => 'DESC'),
+            $limit,
+            null);
 
+        return $contribs;
+    }
+    
+    public function dtContribsSubmitted($limit = null)
+    {
+        $contribs = $this->em->getRepository('DTutoBundle:Contribution')->findBy(
+            array('status' => 2),
+            array('date' => 'DESC'),
+            $limit,
+            null);
+
+        return $contribs;
     }
 
-    public function lastTutorials()
+    public function dtContribsValidate($limit = null)
     {
+        $contribs = $this->em->getRepository('DTutoBundle:Contribution')->findBy(
+            array('status' => 3),
+            array('date' => 'DESC'),
+            $limit,
+            null);
 
+        return $contribs;
     }
-
+    
     public function getName()
     {
         return 'DTutoBundle.twig.extension';

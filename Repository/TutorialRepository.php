@@ -15,14 +15,5 @@ namespace Discutea\DTutoBundle\Repository;
  */
 class TutorialRepository extends \Doctrine\ORM\EntityRepository
 {
-   public function findByTranslatedSlug($slug, $locale)
-    {
-        $qb = $this->createQueryBuilder('n')
-            ->select('n, t')
-            ->join('n.translations', 't')
-            ->where('t.slug = :slug')
-            ->andWhere('t.locale = :locale')
-            ->setParameters(array('slug' => $slug, 'locale' => $locale));
-        return $qb->getQuery()->getSingleResult();
-    }
+
 }
