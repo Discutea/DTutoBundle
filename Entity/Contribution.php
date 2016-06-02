@@ -34,7 +34,7 @@ class Contribution
     protected $content;
 
     /**
-     * @ORM\Column(length=6, unique=true, nullable=true)
+     * @ORM\Column(length=20, unique=false, nullable=true)
      */
     private $version;
 

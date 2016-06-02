@@ -4,6 +4,7 @@ namespace Discutea\DTutoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Discutea\DTutoBundle\Entity\Tutorial;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Discutea\DTutoBundle\Repository\CategoryRepository")
@@ -41,6 +42,12 @@ class Category
      * @ORM\OneToMany(targetEntity="Discutea\DTutoBundle\Entity\Tutorial", mappedBy="category", cascade={"persist", "remove"})
      */
     protected $tutorials;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * Constructor
@@ -134,5 +141,17 @@ class Category
     {
         return $this->tutorials;
     }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
 
 }
