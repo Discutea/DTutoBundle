@@ -45,16 +45,16 @@
             </trans-unit>
             <trans-unit id="c11">
                 <source>discutea.tuto.categories.null</source>
-                <target>Vous devez creer une catégorie pour commencer !</target>
+                <target>Vous devez créer une catégorie pour commencer !</target>
             </trans-unit>
             <!-- Tutorial -->
             <trans-unit id="t1">
                 <source>discutea.tuto.tutorial.create</source>
-                <target>Le tutorial a été créé.</target>
+                <target>Le tutoriae a été créé.</target>
             </trans-unit>
             <trans-unit id="t2">
                 <source>discutea.tuto.tuto.removed</source>
-                <target>Le tutorial a été supprimé.</target>
+                <target>Le tutoriel a été supprimé.</target>
             </trans-unit>
             <trans-unit id="t3">
                 <source>discutea.tuto.tuto.form.title</source>
@@ -62,11 +62,11 @@
             </trans-unit>
             <trans-unit id="t4">
                 <source>discutea.tuto.tuto.create</source>
-                <target>Creer un tutoriel</target>
+                <target>Créer un tutoriel</target>
             </trans-unit>
             <trans-unit id="t5">
                 <source>discutea.tuto.tuto.null</source>
-                <target>Désolé, Aucuns tutoriels existent dans cette catégorie !</target>
+                <target>Désolé, Aucun tutoriel n'existe dans cette catégorie !</target>
             </trans-unit>
             <trans-unit id="t6">
                 <source>discutea.tuto.tuto.switcher.current</source>
@@ -78,20 +78,20 @@
             </trans-unit>
             <trans-unit id="t8">
                 <source>discutea.tuto.tuto.notapproved</source>
-                <target>Le tutorial n'a pas encore été approuvé !</target>
+                <target>Le tutoriel n'a pas encore été approuvé !</target>
             </trans-unit>
             <trans-unit id="t9">
                 <source>discutea.tuto.tuto.rejected</source>
-                <target>Le tutoriel à été rejeté!</target>
+                <target>Le tutoriel à été rejeté !</target>
             </trans-unit>
             <!-- Contribution -->
             <trans-unit id="co1">
                 <source>discutea.tuto.contrib.add</source>
-                <target>La contribution a été ajouté avec succès au tutoriel.</target>
+                <target>La contribution a été ajoutée avec succès au tutoriel.</target>
             </trans-unit>
             <trans-unit id="co2">
                 <source>discutea.tuto.setactive.contrib</source>
-                <target>La contribution à été défini comme contribution courante.</target>
+                <target>La contribution à été définie comme contribution courante.</target>
             </trans-unit>
             <trans-unit id="co3">
                 <source>discutea.tuto.contrib.edit</source>
@@ -99,11 +99,11 @@
             </trans-unit>
             <trans-unit id="co4">
                 <source>discutea.tuto.contrib.current.notremoved</source>
-                <target>Vous ne pouvez pas supprimer la contribution courante pour cela supprimer le tutoriel.</target>
+                <target>Vous ne pouvez pas supprimer la contribution courante, pour cela supprimez le tutoriel.</target>
             </trans-unit>
             <trans-unit id="co5">
                 <source>discutea.tuto.contrib.removed</source>
-                <target>La contribution a été supprimé.</target>
+                <target>La contribution a été supprimée.</target>
             </trans-unit>
             <trans-unit id="co6">
                 <source>discutea.tuto.contrib.form.title</source>
@@ -128,11 +128,11 @@
             </trans-unit>
             <trans-unit id="f5">
                 <source>discutea.tuto.form.contrib.status</source>
-                <target>Séléctionner un statut.</target>
+                <target>Sélectionner un statut.</target>
             </trans-unit>
             <trans-unit id="f6">
                 <source>discutea.tuto.form.contrib.message</source>
-                <target>Message de suivi (visible par le contributeur et les moderateurs).</target>
+                <target>Message de suivi (visible par le contributeur et les modérateurs).</target>
             </trans-unit>
             <trans-unit id="f7">
                 <source>discutea.tuto.form.tuto.title</source>
@@ -148,11 +148,11 @@
             </trans-unit>
             <trans-unit id="f10">
                 <source>discutea.tuto.form.contrib.status.1</source>
-                <target>Reffuser cette contribution.</target>
+                <target>Refuser cette contribution.</target>
             </trans-unit>
             <trans-unit id="f11">
                 <source>discutea.tuto.form.contrib.status.2</source>
-                <target>j'ai terminé le tutoriel.</target>
+                <target>J'ai terminé le tutoriel.</target>
             </trans-unit>
             <trans-unit id="f12">
                 <source>discutea.tuto.form.contrib.status.3</source>
@@ -160,11 +160,11 @@
             </trans-unit>
             <trans-unit id="f13">
                 <source>discutea.tuto.form.choice.category</source>
-                <target>Selectionner la catégorie.</target>
+                <target>Sélectionner la catégorie.</target>
             </trans-unit>
             <trans-unit id="f14">
                 <source>discutea.tuto.form.contrib.version</source>
-                <target>Indiquer un numéro de version ex: 1.0.0</target>
+                <target>Indiquer un numéro de version ex. : 1.0.0</target>
             </trans-unit>
             <!-- Other's -->
             <trans-unit id="d1">
