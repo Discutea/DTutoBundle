@@ -50,7 +50,7 @@
             <!-- Tutorial -->
             <trans-unit id="t1">
                 <source>discutea.tuto.tutorial.create</source>
-                <target>Le tutoriae a été créé.</target>
+                <target>Le tutoriel a été créé.</target>
             </trans-unit>
             <trans-unit id="t2">
                 <source>discutea.tuto.tuto.removed</source>
