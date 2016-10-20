@@ -66,7 +66,7 @@
             </trans-unit>
             <trans-unit id="t5">
                 <source>discutea.tuto.tuto.null</source>
-                <target>Sorry, No tutorials found in the category!</target>
+                <target>Sorry, no tutorial found in the category!</target>
             </trans-unit>
             <trans-unit id="t6">
                 <source>discutea.tuto.tuto.switcher.current</source>
@@ -74,7 +74,7 @@
             </trans-unit>
             <trans-unit id="t7">
                 <source>discutea.tuto.tuto.inprogress</source>
-                <target>The tutorial is being written</target>
+                <target>The tutorial is not complete</target>
             </trans-unit>
             <trans-unit id="t8">
                 <source>discutea.tuto.tuto.notapproved</source>
@@ -87,11 +87,11 @@
             <!-- Contribution -->
             <trans-unit id="co1">
                 <source>discutea.tuto.contrib.add</source>
-                <target>The Contribution was successfully add in tutorial.</target>
+                <target>The Contribution was successfully added to the tutorial.</target>
             </trans-unit>
             <trans-unit id="co2">
                 <source>discutea.tuto.setactive.contrib</source>
-                <target>The contribution to been defined as current contribution.</target>
+                <target>The contribution will be defined as current contribution.</target>
             </trans-unit>
             <trans-unit id="co3">
                 <source>discutea.tuto.contrib.edit</source>
@@ -99,7 +99,7 @@
             </trans-unit>
             <trans-unit id="co4">
                 <source>discutea.tuto.contrib.current.notremoved</source>
-                <target>You can't delete the current contribution for that remove the tutorial.</target>
+                <target>You can't delete the current contribution, for that remove the tutorial.</target>
             </trans-unit>
             <trans-unit id="co5">
                 <source>discutea.tuto.contrib.removed</source>
@@ -107,12 +107,12 @@
             </trans-unit>
             <trans-unit id="co6">
                 <source>discutea.tuto.contrib.form.title</source>
-                <target>Contribution Management form.</target>
+                <target>Contribution management form.</target>
             </trans-unit>
             <!-- form's -->
             <trans-unit id="f1">
                 <source>discutea.tuto.form.contribution.content</source>
-                <target>Contribution contents.</target>
+                <target>Contribution content.</target>
             </trans-unit>
             <trans-unit id="f2">
                 <source>discutea.tuto.form.category.title</source>
@@ -120,11 +120,11 @@
             </trans-unit>
             <trans-unit id="f3">
                 <source>discutea.tuto.form.category.position</source>
-                <target>Position to display results.</target>
+                <target>Display position</target>
             </trans-unit>
             <trans-unit id="f4">
                 <source>discutea.tuto.form.category.image</source>
-                <target>Optional illustration image</target>
+                <target>Optional illustration</target>
             </trans-unit>
             <trans-unit id="f5">
                 <source>discutea.tuto.form.contrib.status</source>
@@ -144,7 +144,7 @@
             </trans-unit>
             <trans-unit id="f9">
                 <source>discutea.tuto.form.contrib.status.0</source>
-                <target>I will end later.</target>
+                <target>I will finish later.</target>
             </trans-unit>
             <trans-unit id="f10">
                 <source>discutea.tuto.form.contrib.status.1</source>
